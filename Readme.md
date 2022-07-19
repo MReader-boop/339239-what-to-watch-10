@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Павел Клёсов](https://up.htmlacademy.ru/react/10/user/339239).
-* Наставник: `Неизвестно`.
+* Наставник: [Иван Чернобук](https://htmlacademy.ru/profile/inchernobuk).
 
 ---
 
