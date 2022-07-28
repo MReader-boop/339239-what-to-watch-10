@@ -1,4 +1,4 @@
-import HomeScreen from '../../pages/home-screen';
+import HomeScreen from '../../pages/home-screen/home-screen';
 
 type AppProps = {
   selectedFilmInfo: {
