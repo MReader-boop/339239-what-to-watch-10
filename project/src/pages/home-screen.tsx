@@ -8,9 +8,13 @@ type HomeScreenProps = {
     genre: string;
     date: number;
   }
+  filmCards: {
+    imgSrc: string;
+    name: string;
+  }[]
 };
 
-function HomeScreen({selectedFilmInfo}: HomeScreenProps): JSX.Element {
+function HomeScreen({selectedFilmInfo, filmCards}: HomeScreenProps): JSX.Element {
   return(
     <>
       <section className="film-card">
@@ -112,106 +116,10 @@ function HomeScreen({selectedFilmInfo}: HomeScreenProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-
-            <FilmCard
-              imgSrc = 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg'
-              name = 'Fantastic Beasts: The Crimes of Grindelwald'
-            />
-
-            <FilmCard
-              imgSrc = 'img/bohemian-rhapsody.jpg'
-              name = 'Bohemian Rhapsody'
-            />
-
-            <FilmCard
-              imgSrc = 'img/macbeth.jpg'
-              name = 'Macbeth'
-            />
-
-            <FilmCard
-              imgSrc = 'img/aviator.jpg'
-              name = 'Aviator'
-            />
-
-            <FilmCard
-              imgSrc = 'img/we-need-to-talk-about-kevin.jpg'
-              name = 'We need to talk about Kevin'
-            />
-
-            <FilmCard
-              imgSrc = 'img/what-we-do-in-the-shadows.jpg'
-              name = 'What We Do in the Shadows'
-            />
-
-            <FilmCard
-              imgSrc = 'img/revenant.jpg'
-              name = 'Revenant'
-            />
-
-            <FilmCard
-              imgSrc = 'img/johnny-english.jpg'
-              name = 'Johnny English'
-            />
-
-            <FilmCard
-              imgSrc = 'img/shutter-island.jpg'
-              name = 'Shutter Island'
-            />
-
-            <FilmCard
-              imgSrc = 'img/pulp-fiction.jpg'
-              name = 'Pulp Fiction'
-            />
-
-            <FilmCard
-              imgSrc = 'img/no-country-for-old-men.jpg'
-              name = 'No Country for Old Men'
-            />
-
-            <FilmCard
-              imgSrc = 'img/snatch.jpg'
-              name = 'Snatch'
-            />
-
-            <FilmCard
-              imgSrc = 'img/moonrise-kingdom.jpg'
-              name = 'Moonrise Kingdom'
-            />
-
-            <FilmCard
-              imgSrc = 'img/seven-years-in-tibet.jpg'
-              name = 'Seven Years in Tibet'
-            />
-
-            <FilmCard
-              imgSrc = 'img/midnight-special.jpg'
-              name = 'Midnight Special'
-            />
-
-            <FilmCard
-              imgSrc = 'img/war-of-the-worlds.jpg'
-              name = 'War of the Worlds'
-            />
-
-            <FilmCard
-              imgSrc = 'img/dardjeeling-limited.jpg'
-              name = 'Dardjeeling Limited'
-            />
-
-            <FilmCard
-              imgSrc = 'img/orlando.jpg'
-              name = 'Orlando'
-            />
-
-            <FilmCard
-              imgSrc = 'img/mindhunter.jpg'
-              name = 'Mindhunter'
-            />
-
-            <FilmCard
-              imgSrc = 'img/midnight-special.jpg'
-              name = 'Midnight Special'
-            />
+            {filmCards.map(({imgSrc, name}, i) => {
+              const key = `${i} - ${name}`;
+              return <FilmCard imgSrc={imgSrc} name={name} key={key}/>;
+            })}
           </div>
 
           <div className="catalog__more">

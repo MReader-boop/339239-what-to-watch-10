@@ -7,11 +7,20 @@ type AppProps = {
     name: string;
     genre: string;
     date: number;
-  }
+  };
+  filmCards: {
+    imgSrc: string;
+    name: string;
+  }[]
 }
 
-function App({selectedFilmInfo}: AppProps): JSX.Element {
-  return <HomeScreen selectedFilmInfo = {selectedFilmInfo}/>;
+function App({selectedFilmInfo, filmCards}: AppProps): JSX.Element {
+  return (
+    <HomeScreen
+      selectedFilmInfo = {selectedFilmInfo}
+      filmCards = {filmCards}
+    />
+  );
 }
 
 export default App;
