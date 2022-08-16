@@ -1,4 +1,5 @@
-import FilmCard from '../../components/film-card/film-card';
+import FilmList from '../../components/film-list/film-list';
+import {Film} from '../../types/film';
 
 type HomeScreenProps = {
   selectedFilmInfo: {
@@ -8,13 +9,10 @@ type HomeScreenProps = {
     genre: string;
     date: number;
   }
-  filmCards: {
-    imgSrc: string;
-    name: string;
-  }[]
+  films: Film[]
 };
 
-function HomeScreen({selectedFilmInfo, filmCards}: HomeScreenProps): JSX.Element {
+function HomeScreen({selectedFilmInfo, films}: HomeScreenProps): JSX.Element {
   return(
     <>
       <section className="film-card">
@@ -115,12 +113,7 @@ function HomeScreen({selectedFilmInfo, filmCards}: HomeScreenProps): JSX.Element
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {filmCards.map(({imgSrc, name}, i) => {
-              const key = `${i} - ${name}`;
-              return <FilmCard imgSrc={imgSrc} name={name} key={key}/>;
-            })}
-          </div>
+          <FilmList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

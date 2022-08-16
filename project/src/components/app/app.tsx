@@ -8,6 +8,7 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
+import {Film} from '../../types/film';
 
 type AppProps = {
   selectedFilmInfo: {
@@ -17,20 +18,17 @@ type AppProps = {
     genre: string;
     date: number;
   };
-  filmCards: {
-    imgSrc: string;
-    name: string;
-  }[]
+  films: Film[]
 }
 
-function App({selectedFilmInfo, filmCards}: AppProps): JSX.Element {
+function App({selectedFilmInfo, films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route path = {AppRoutes.Main} element={
           <HomeScreen
             selectedFilmInfo = {selectedFilmInfo}
-            filmCards = {filmCards}
+            films = {films}
           />
         }
         />
