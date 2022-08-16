@@ -1,3 +1,4 @@
+
 import {Film} from '../../types/film';
 import FilmCard from '../film-card/film-card';
 
@@ -10,7 +11,14 @@ function FilmList({films}: FilmListProps): JSX.Element {
     <div className="catalog__films-list">
       {films.map(({card}, i) => {
         const key = `${i} - ${card.name}`;
-        return <FilmCard posterPreview={card.posterPreview} name={card.name} key={key}/>;
+        return (
+          <FilmCard
+            videoPreview={card.videoPreview}
+            posterPreview={card.posterPreview}
+            name={card.name}
+            key={key}
+          />
+        );
       })}
     </div>
   );
