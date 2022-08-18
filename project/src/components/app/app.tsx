@@ -25,25 +25,18 @@ function App({selectedFilmInfo, films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path = {AppRoutes.Main} element={
-          <HomeScreen
-            selectedFilmInfo = {selectedFilmInfo}
-            films = {films}
-          />
-        }
-        />
+        <Route path = {AppRoutes.Main} element={<HomeScreen selectedFilmInfo = {selectedFilmInfo} films = {films} />} />
         <Route path = {AppRoutes.SignIn} element = {<SignInScreen />}/>
-        <Route path = {AppRoutes.MyList} element = {
-          <PrivateRoute
-            authStatus = {AuthStatus.NotAuthed}
-          >
-            <MyListScreen />
-          </PrivateRoute>
-        }
+        <Route path = {AppRoutes.MyList}
+          element = {
+            <PrivateRoute authStatus = {AuthStatus.Authed} >
+              <MyListScreen films={films}/>
+            </PrivateRoute>
+          }
         />
         <Route path = {AppRoutes.Film} element = {<FilmScreen />}/>
-        <Route path = {AppRoutes.AddReview} element = {<AddReviewScreen />}/>
-        <Route path = {AppRoutes.Player} element = {<PlayerScreen />}/>
+        <Route path = {AppRoutes.AddReview} element = {<AddReviewScreen film={films[0]} />}/>
+        <Route path = {AppRoutes.Player} element = {<PlayerScreen film={films[0]}/>}/>
         <Route path = '*' element = {<NotFoundScreen />}/>
       </Routes>
     </BrowserRouter>

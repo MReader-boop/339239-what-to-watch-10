@@ -11,15 +11,16 @@ function FilmList({films}: FilmListProps): JSX.Element {
   const [, setActiveFilmPreview] = useState('');
   return (
     <div className="catalog__films-list">
-      {films.map(({card}, i) => {
-        const key = `${i} - ${card.name}`;
+      {films.map((film) => {
+        const key = `${film.id} - ${film.name}`;
         return (
           <FilmCard
             onMouseEnter={()=>{setActiveFilmPreview(key);}}
             onMouseLeave={()=>{setActiveFilmPreview('');}}
-            videoPreview={card.videoPreview}
-            posterPreview={card.posterPreview}
-            name={card.name}
+            videoPreview={film.card.videoPreview}
+            posterPreview={film.card.posterPreview}
+            name={film.name}
+            id={film.id}
             key={key}
           />
         );

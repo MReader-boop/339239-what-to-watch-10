@@ -14,10 +14,11 @@ type FilmDescription = {
 type FilmCard = {
   posterPreview: string;
   videoPreview: string;
-  name: string;
 };
 
 export type Film = {
+  id: number;
+  name: string;
   card: FilmCard;
   description: FilmDescription;
   reviews: Review[];

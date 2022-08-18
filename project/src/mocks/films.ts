@@ -4,10 +4,11 @@ import { reviews } from './reviews';
 export const films: Film[] =
 [
   {
+    name: 'Fantastic Beasts: The Crimes of Grindelwald',
+    id: 0,
     card: {
       posterPreview: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
       videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-      name: 'Fantastic Beasts: The Crimes of Grindelwald',
     },
     description: {
       description: 'Fantastic Beasts: The Crimes of Grindelwald',
@@ -22,10 +23,11 @@ export const films: Film[] =
     reviews: reviews
   },
   {
+    name: 'Bohemian Rhapsody',
+    id: 1,
     card: {
       posterPreview: 'img/bohemian-rhapsody.jpg',
       videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-      name: 'Bohemian Rhapsody',
     },
     description: {
       description: 'Bohemian Rhapsody',
@@ -40,10 +42,11 @@ export const films: Film[] =
     reviews: reviews
   },
   {
+    name: 'Macbeth',
+    id: 2,
     card: {
       posterPreview: 'img/macbeth.jpg',
       videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-      name: 'Macbeth',
     },
     description: {
       description: 'Macbeth',
@@ -58,10 +61,11 @@ export const films: Film[] =
     reviews: reviews
   },
   {
+    name: 'Aviator',
+    id: 3,
     card: {
       posterPreview: 'img/aviator.jpg',
       videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-      name: 'Aviator',
     },
     description: {
       description: 'Aviator',
@@ -76,10 +80,11 @@ export const films: Film[] =
     reviews: reviews
   },
   {
+    name: 'We need to talk about Kevin',
+    id: 4,
     card: {
       posterPreview: 'img/we-need-to-talk-about-kevin.jpg',
       videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-      name: 'We need to talk about Kevin',
     },
     description: {
       description: 'We need to talk about Kevin',
@@ -94,10 +99,11 @@ export const films: Film[] =
     reviews: reviews
   },
   {
+    name: 'What We Do in the Shadows',
+    id: 5,
     card: {
       posterPreview: 'img/what-we-do-in-the-shadows.jpg',
       videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-      name: 'What We Do in the Shadows',
     },
     description: {
       description: 'What We Do in the Shadows',
@@ -112,10 +118,11 @@ export const films: Film[] =
     reviews: reviews
   },
   {
+    name: 'Revenant',
+    id: 6,
     card: {
       posterPreview: 'img/revenant.jpg',
       videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-      name: 'Revenant',
     },
     description: {
       description: 'Revenant',
@@ -130,10 +137,11 @@ export const films: Film[] =
     reviews: reviews
   },
   {
+    name: 'Johnny English',
+    id: 7,
     card: {
       posterPreview: 'img/johnny-english.jpg',
       videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-      name: 'Johnny English',
     },
     description: {
       description: 'Johnny English',
