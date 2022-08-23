@@ -17,10 +17,7 @@ function FilmList({films}: FilmListProps): JSX.Element {
           <FilmCard
             onMouseEnter={()=>{setActiveFilmPreview(key);}}
             onMouseLeave={()=>{setActiveFilmPreview('');}}
-            videoPreview={film.card.videoPreview}
-            posterPreview={film.card.posterPreview}
-            name={film.name}
-            id={film.id}
+            film={film}
             key={key}
           />
         );
