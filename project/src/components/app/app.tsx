@@ -11,21 +11,14 @@ import PrivateRoute from '../private-route/private-route';
 import {Film} from '../../types/film';
 
 type AppProps = {
-  selectedFilmInfo: {
-    imgSrc: string;
-    bgImgSrc: string;
-    name: string;
-    genre: string;
-    date: number;
-  };
   films: Film[]
 }
 
-function App({selectedFilmInfo, films}: AppProps): JSX.Element {
+function App({films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path = {AppRoutes.Main} element={<HomeScreen selectedFilmInfo = {selectedFilmInfo} films = {films} />} />
+        <Route path = {AppRoutes.Main} element={<HomeScreen films = {films} />} />
         <Route path = {AppRoutes.SignIn} element = {<SignInScreen />}/>
         <Route path = {AppRoutes.MyList}
           element = {
@@ -36,7 +29,7 @@ function App({selectedFilmInfo, films}: AppProps): JSX.Element {
         />
         <Route path = {AppRoutes.Film} element = {<FilmScreen films={films}/>}/>
         <Route path = {AppRoutes.AddReview} element = {<AddReviewScreen film={films[0]} />}/>
-        <Route path = {AppRoutes.Player} element = {<PlayerScreen film={films[0]}/>}/>
+        <Route path = {AppRoutes.Player} element = {<PlayerScreen films={films}/>}/>
         <Route path = '*' element = {<NotFoundScreen />}/>
       </Routes>
     </BrowserRouter>

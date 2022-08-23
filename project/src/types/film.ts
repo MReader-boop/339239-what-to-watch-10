@@ -17,7 +17,7 @@ type FilmCard = {
 };
 
 export type Film = {
-  id: number;
+  id: string;
   name: string;
   card: FilmCard;
   description: FilmDescription;
