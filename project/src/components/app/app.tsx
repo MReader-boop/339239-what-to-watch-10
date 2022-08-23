@@ -34,7 +34,7 @@ function App({selectedFilmInfo, films}: AppProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path = {AppRoutes.Film} element = {<FilmScreen />}/>
+        <Route path = {AppRoutes.Film} element = {<FilmScreen films={films}/>}/>
         <Route path = {AppRoutes.AddReview} element = {<AddReviewScreen film={films[0]} />}/>
         <Route path = {AppRoutes.Player} element = {<PlayerScreen film={films[0]}/>}/>
         <Route path = '*' element = {<NotFoundScreen />}/>
