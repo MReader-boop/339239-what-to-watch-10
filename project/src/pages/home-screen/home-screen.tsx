@@ -1,25 +1,21 @@
-import FilmCard from '../../components/film-card/film-card';
+import FilmList from '../../components/film-list/film-list';
+import { AppRoutes } from '../../const';
+import {Film} from '../../types/film';
+import { useNavigate } from 'react-router-dom';
 
 type HomeScreenProps = {
-  selectedFilmInfo: {
-    imgSrc: string;
-    bgImgSrc: string;
-    name: string;
-    genre: string;
-    date: number;
-  }
-  filmCards: {
-    imgSrc: string;
-    name: string;
-  }[]
+  films: Film[]
 };
 
-function HomeScreen({selectedFilmInfo, filmCards}: HomeScreenProps): JSX.Element {
+function HomeScreen({films}: HomeScreenProps): JSX.Element {
+  const selectedFilm = films[0];
+  const navigate = useNavigate();
+
   return(
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={selectedFilmInfo.bgImgSrc} alt={selectedFilmInfo.name} />
+          <img src={selectedFilm.description.poster} alt={selectedFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -48,24 +44,25 @@ function HomeScreen({selectedFilmInfo, filmCards}: HomeScreenProps): JSX.Element
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={selectedFilmInfo.imgSrc} alt={`${selectedFilmInfo.name} poster`} width="218" height="327" />
+              <img src={selectedFilm.description.poster} alt={`${selectedFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{selectedFilmInfo.name}</h2>
+              <h2 className="film-card__title">{selectedFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{selectedFilmInfo.genre}</span>
-                <span className="film-card__year">{selectedFilmInfo.date}</span>
+                <span className="film-card__genre">{selectedFilm.description.genre}</span>
+                <span className="film-card__year">{selectedFilm.description.year}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button onClick={() => navigate(`/player/${selectedFilm.id}`)} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
+
+                <button onClick={() => navigate(AppRoutes.MyList)} className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
@@ -115,12 +112,7 @@ function HomeScreen({selectedFilmInfo, filmCards}: HomeScreenProps): JSX.Element
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {filmCards.map(({imgSrc, name}, i) => {
-              const key = `${i} - ${name}`;
-              return <FilmCard imgSrc={imgSrc} name={name} key={key}/>;
-            })}
-          </div>
+          <FilmList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

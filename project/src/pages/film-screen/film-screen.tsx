@@ -1,21 +1,36 @@
-function FilmScreen(): JSX.Element {
+import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
+import { AppRoutes } from '../../const';
+import {Film} from '../../types/film';
+
+type FilmScreenProps = {
+  films: Film[]
+}
+
+function FilmScreen({films}: FilmScreenProps): JSX.Element {
+  const {id} = useParams();
+  const currentFilm = films.find((film) => film.id === id);
+  const navigate = useNavigate();
+
+  if(currentFilm === undefined){
+    return(<Navigate to='/*' />);
+  }
   return(
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={currentFilm.description.poster} alt={currentFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link to={AppRoutes.Main} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <ul className="user-block">
@@ -32,27 +47,27 @@ function FilmScreen(): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{currentFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{currentFilm.description.genre}</span>
+                <span className="film-card__year">{currentFilm.description.year}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button onClick={() => navigate(`/player/${currentFilm.id}`)} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
+                <button onClick={() => navigate(AppRoutes.MyList)} className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <button onClick={() => navigate(AppRoutes.AddReview)} className="btn film-card__button">Add review</button>
               </div>
             </div>
           </div>
@@ -61,7 +76,7 @@ function FilmScreen(): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={currentFilm.description.poster} alt={`${currentFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -80,21 +95,19 @@ function FilmScreen(): JSX.Element {
               </nav>
 
               <div className="film-rating">
-                <div className="film-rating__score">8,9</div>
+                <div className="film-rating__score">{currentFilm.description.rating}</div>
                 <p className="film-rating__meta">
                   <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">240 ratings</span>
+                  <span className="film-rating__count">{currentFilm.description.votes} ratings</span>
                 </p>
               </div>
 
               <div className="film-card__text">
-                <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`&apos;`s friend and protege.</p>
+                {currentFilm.description.description}
 
-                <p>Gustave prides himself on providing first-class service to the hotel`&apos;`s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave`&apos;`s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
+                <p className="film-card__director"><strong>Director: {currentFilm.description.director}</strong></p>
 
-                <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
+                <p className="film-card__starring"><strong>Starring: {currentFilm.description.starring.join(', ')} and other</strong></p>
               </div>
             </div>
           </div>
@@ -146,11 +159,11 @@ function FilmScreen(): JSX.Element {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to={AppRoutes.Main} className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">

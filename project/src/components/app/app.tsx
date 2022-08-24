@@ -8,44 +8,28 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
+import {Film} from '../../types/film';
 
 type AppProps = {
-  selectedFilmInfo: {
-    imgSrc: string;
-    bgImgSrc: string;
-    name: string;
-    genre: string;
-    date: number;
-  };
-  filmCards: {
-    imgSrc: string;
-    name: string;
-  }[]
+  films: Film[]
 }
 
-function App({selectedFilmInfo, filmCards}: AppProps): JSX.Element {
+function App({films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path = {AppRoutes.Main} element={
-          <HomeScreen
-            selectedFilmInfo = {selectedFilmInfo}
-            filmCards = {filmCards}
-          />
-        }
-        />
+        <Route path = {AppRoutes.Main} element={<HomeScreen films = {films} />} />
         <Route path = {AppRoutes.SignIn} element = {<SignInScreen />}/>
-        <Route path = {AppRoutes.MyList} element = {
-          <PrivateRoute
-            authStatus = {AuthStatus.NotAuthed}
-          >
-            <MyListScreen />
-          </PrivateRoute>
-        }
+        <Route path = {AppRoutes.MyList}
+          element = {
+            <PrivateRoute authStatus = {AuthStatus.Authed} >
+              <MyListScreen films={films}/>
+            </PrivateRoute>
+          }
         />
-        <Route path = {AppRoutes.Film} element = {<FilmScreen />}/>
-        <Route path = {AppRoutes.AddReview} element = {<AddReviewScreen />}/>
-        <Route path = {AppRoutes.Player} element = {<PlayerScreen />}/>
+        <Route path = {AppRoutes.Film} element = {<FilmScreen films={films}/>}/>
+        <Route path = {AppRoutes.AddReview} element = {<AddReviewScreen film={films[0]} />}/>
+        <Route path = {AppRoutes.Player} element = {<PlayerScreen films={films}/>}/>
         <Route path = '*' element = {<NotFoundScreen />}/>
       </Routes>
     </BrowserRouter>
