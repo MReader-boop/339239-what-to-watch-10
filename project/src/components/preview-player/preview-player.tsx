@@ -1,19 +1,19 @@
 import { useEffect, useRef } from 'react';
-import {Film} from '../../types/film';
 
 type PreviewPlayerProps = {
-  film: Film;
+  videoPreview: string;
+  posterPreview: string;
 }
 
-function PreviewPlayer({film}: PreviewPlayerProps): JSX.Element {
+function PreviewPlayer({videoPreview, posterPreview}: PreviewPlayerProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setTimeout(
       () => {
-        if(videoRef.current === null) {
-          throw new Error();
-        } else {videoRef.current.play();}
+        if(videoRef.current) {
+          videoRef.current.play();
+        }
       }, 1000
     );
   }
@@ -21,8 +21,8 @@ function PreviewPlayer({film}: PreviewPlayerProps): JSX.Element {
 
   return(
     <video
-      src={film.card.videoPreview}
-      poster={film.card.posterPreview}
+      src={videoPreview}
+      poster={posterPreview}
       ref={videoRef}
       width="280"
       height="175"

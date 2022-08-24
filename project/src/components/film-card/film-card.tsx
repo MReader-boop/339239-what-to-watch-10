@@ -15,7 +15,7 @@ function FilmCard({onMouseEnter, onMouseLeave, isActive, film}: FilmCardProps): 
     <article className="small-film-card catalog__films-card" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className="small-film-card__image">
         {isActive ?
-          <PreviewPlayer film={film} /> :
+          <PreviewPlayer videoPreview={film.card.videoPreview} posterPreview={film.card.posterPreview}/> :
           <img src={film.card.posterPreview} alt={film.name} width="280" height="175" />}
       </div>
       <h3 className="small-film-card__title">
