@@ -12,3 +12,16 @@ export enum AuthStatus {
   NotAuthed = 'NO_AUTH',
   Unknown = 'UNKNOWN'
 }
+
+export enum Filters {
+  AllGenres = 'ALL_GENRES',
+  Comedies = 'COMEDIES',
+  Crime = 'CRIME',
+  Documentary = 'DOCUMENTARY',
+  Dramas = 'DRAMAS',
+  Horror = 'HORROR',
+  KidsAndFamily = 'KIDSANDFAMILY',
+  Romance = 'ROMANCE',
+  SciFi = 'SCIFI',
+  Thrillers = 'THRILLERS'
+}
