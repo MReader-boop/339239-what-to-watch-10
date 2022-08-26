@@ -7,3 +7,4 @@ export const changeFilter = createAction('films/changeFilter', (filter) => ({
 
 export const filterFilms = createAction('films/getFilms');
 
+export const loadFilms = createAction('films/loadFilms');
