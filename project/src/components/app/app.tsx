@@ -1,5 +1,8 @@
 import {AppRoutes, AuthStatus} from '../../const';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeFilterList } from '../../store/action';
+import { Filters } from '../../const';
 import HomeScreen from '../../pages/home-screen/home-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
@@ -8,17 +11,29 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {Film} from '../../types/film';
+import { Film } from '../../types/film';
 
-type AppProps = {
-  films: Film[]
-}
+const getFilterList = (films: Film[]): string[] => {
+  const result: string[] = [];
+  films.forEach((film) => {
+    if (!result.includes(film.description.genre)) {
+      result.push(film.description.genre);
+    }
+  });
 
-function App({films}: AppProps): JSX.Element {
+  return result;
+};
+
+function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const films = useAppSelector((state) => state.filmList);
+  const filterList = getFilterList(films);
+  dispatch(changeFilterList([Filters.AllGenres, ...filterList]));
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path = {AppRoutes.Main} element={<HomeScreen films = {films} />} />
+        <Route path = {AppRoutes.Main} element={<HomeScreen films = {films} filterList={filterList} />} />
         <Route path = {AppRoutes.SignIn} element = {<SignInScreen />}/>
         <Route path = {AppRoutes.MyList}
           element = {
