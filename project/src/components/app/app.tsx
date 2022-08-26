@@ -1,5 +1,7 @@
 import {AppRoutes, AuthStatus} from '../../const';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { loadFilms } from '../../store/action';
 import HomeScreen from '../../pages/home-screen/home-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
@@ -8,13 +10,12 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import {Film} from '../../types/film';
 
-type AppProps = {
-  films: Film[]
-}
+function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  dispatch(loadFilms);
+  const films = useAppSelector((state) => state.filmList);
 
-function App({films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
