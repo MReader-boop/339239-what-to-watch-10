@@ -1,9 +1,12 @@
-import { changeFilter } from './action';
-import { Filters } from '../const';
+import { changeFilter, filterFilms } from './action';
+import { Filters } from '../util';
 import { createReducer } from '@reduxjs/toolkit';
+import { films } from '../mocks/films';
 
 const initialState = {
   currentFilter: Filters.AllGenres,
+  filmList: films,
+  filteredFilmList: films,
 };
 
 const reducer = createReducer(
@@ -12,6 +15,9 @@ const reducer = createReducer(
     builder
       .addCase(changeFilter, (state, action) => {
         state.currentFilter = action.payload;
+      })
+      .addCase(filterFilms, (state) => {
+        state.filteredFilmList = state.currentFilter(state.filmList);
       });
   }
 );
