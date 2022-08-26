@@ -1,4 +1,6 @@
 import {Filters} from '../../const';
+import {useAppDispatch} from '../../hooks';
+import {changeCurrentFilter} from '../../store/action';
 
 type GenreListItemProps = {
   currentFilter: string;
@@ -31,10 +33,19 @@ const getFilterName = (filter: string): string => {
 };
 
 function GenreListItem({currentFilter, filter}: GenreListItemProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const filterName = getFilterName(filter);
   return(
     <li className={`catalog__genres-item ${filter === currentFilter ? 'catalog__genres-item--active' : ''}`}>
-      <a href="#" className="catalog__genres-link">{filterName}</a>
+      <a onClick={
+        (evt: React.MouseEvent<HTMLElement>) => {
+          evt.preventDefault();
+          dispatch(changeCurrentFilter(filter));
+        }
+      } href="/" className="catalog__genres-link"
+      >
+        {filterName}
+      </a>
     </li>
   );
 }
