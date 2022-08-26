@@ -55,7 +55,7 @@ export const films: Film[] =
       director: 'Christopher Nolan',
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/macbeth.jpg',
-      genre: 'horror',
+      genre: 'comedy',
       year: 1984,
     },
     reviews: reviews
@@ -74,7 +74,7 @@ export const films: Film[] =
       director: 'Christopher Nolan',
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/aviator.jpg',
-      genre: 'horror',
+      genre: 'crime',
       year: 1984,
     },
     reviews: reviews
@@ -93,7 +93,7 @@ export const films: Film[] =
       director: 'Christopher Nolan',
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/we-need-to-talk-about-kevin.jpg',
-      genre: 'horror',
+      genre: 'documentary',
       year: 1984,
     },
     reviews: reviews
@@ -112,7 +112,7 @@ export const films: Film[] =
       director: 'Christopher Nolan',
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/what-we-do-in-the-shadows.jpg',
-      genre: 'horror',
+      genre: 'drama',
       year: 1984,
     },
     reviews: reviews
@@ -131,7 +131,7 @@ export const films: Film[] =
       director: 'Christopher Nolan',
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/revenant.jpg',
-      genre: 'horror',
+      genre: 'romance',
       year: 1984,
     },
     reviews: reviews
@@ -150,7 +150,7 @@ export const films: Film[] =
       director: 'Christopher Nolan',
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
-      genre: 'horror',
+      genre: 'drama',
       year: 1984,
     },
     reviews: reviews
