@@ -1,41 +1,23 @@
+import {Filters} from '../../const';
+import {useAppDispatch} from '../../hooks';
+import {changeCurrentFilter} from '../../store/action';
+import GenreListItem from '../genre-list-item/genre-list-item';
+
 type GenreListProps = {
   currentFilter: string;
   filterList: string[];
 };
 
 function GenreList({currentFilter, filterList}: GenreListProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  dispatch(changeCurrentFilter(Filters.AllGenres));
   return(
     <ul className="catalog__genres-list">
-      <li className="catalog__genres-item catalog__genres-item--active">
-        <a href="#" className="catalog__genres-link">All genres</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link ">Comedies</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Crime</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Documentary</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Dramas</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Horror</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Kids & Family</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Romance</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Sci-Fi</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#" className="catalog__genres-link">Thrillers</a>
-      </li>
+      <GenreListItem currentFilter={currentFilter} filter={Filters.AllGenres}/>
+      {filterList.map((filter, index) => {
+        const key = `${filter} - ${index}`;
+        return <GenreListItem currentFilter={currentFilter} filter={filter} key={key}/>;
+      })}
     </ul>
   );
 }
