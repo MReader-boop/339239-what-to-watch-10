@@ -1,26 +1,33 @@
-import { changeFilter, filterFilms, loadFilms } from './action';
-import { Filters } from '../util';
+import { loadFilms, changeCurrentFilter, changeFilterList } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import { films } from '../mocks/films';
+import {Filters} from '../const';
+import {Film} from '../types/film';
 
-const initialState = {
+type State = {
+  currentFilter: string;
+  filmList: Film[] | [];
+  filterList: string[];
+};
+
+const initialState: State = {
   currentFilter: Filters.AllGenres,
   filmList: films,
-  filteredFilmList: films,
+  filterList: [Filters.AllGenres],
 };
 
 const reducer = createReducer(
   initialState,
   (builder) => {
     builder
-      .addCase(changeFilter, (state, action) => {
-        state.currentFilter = action.payload;
-      })
-      .addCase(filterFilms, (state) => {
-        state.filteredFilmList = state.currentFilter(state.filmList);
-      })
       .addCase(loadFilms, (state) => {
         state.filmList = films;
+      })
+      .addCase(changeCurrentFilter, (state, action) => {
+        state.currentFilter = action.payload;
+      })
+      .addCase(changeFilterList, (state, action) => {
+        state.filterList = action.payload;
       });
   }
 );

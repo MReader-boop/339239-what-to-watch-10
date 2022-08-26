@@ -3,14 +3,31 @@ import { AppRoutes } from '../../const';
 import {Film} from '../../types/film';
 import { useNavigate } from 'react-router-dom';
 import GenreList from '../../components/genre-list/genre-list';
+import {Filters} from '../../const';
+import { useAppSelector } from '../../hooks';
 
-type HomeScreenProps = {
-  films: Film[]
+const getFilteredFilms = (films: Film[], filter: string) => {
+  if (filter === Filters.AllGenres) {
+    return films;
+  } else {
+    return films.filter((film) => film.description.genre === filter);
+  }
 };
 
-function HomeScreen({films}: HomeScreenProps): JSX.Element {
-  const selectedFilm = films[0];
+type HomeScreenProps = {
+  films: Film[];
+  filterList: string[];
+};
+
+function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
   const navigate = useNavigate();
+  const currentFilter = useAppSelector((state) => state.currentFilter);
+
+  if (films.length === 0) {
+    return null;
+  }
+  const filteredFilms = getFilteredFilms(films, currentFilter);
+  const selectedFilm = films[0];
 
   return(
     <>
@@ -80,8 +97,8 @@ function HomeScreen({films}: HomeScreenProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList films={films}/>
-          <FilmList films={films}/>
+          <GenreList currentFilter={currentFilter} filterList={filterList}/>
+          <FilmList films={filteredFilms}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

@@ -1,10 +1,13 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const changeFilter = createAction('films/changeFilter', (filter) => ({
+export const changeCurrentFilter = createAction('films/changeCurrentFilter', (filter) => ({
   payload: filter
 })
 );
 
-export const filterFilms = createAction('films/getFilms');
+export const changeFilterList = createAction('films/changeFilterList', (filters) => ({
+  payload: filters
+})
+);
 
 export const loadFilms = createAction('films/loadFilms');
