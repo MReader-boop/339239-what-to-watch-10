@@ -13,5 +13,23 @@ export const reviews: Review[] =
     rating: 1,
     userName: 'John Doe',
     date: 'December 24, 2018'
-  }
+  },
+  {
+    text: 'A great film!',
+    rating: 10,
+    userName: 'John Doe',
+    date: 'December 24, 2018'
+  },
+  {
+    text: 'A great film!',
+    rating: 10,
+    userName: 'John Doe',
+    date: 'December 24, 2018'
+  },
+  {
+    text: 'A great film!',
+    rating: 10,
+    userName: 'John Doe',
+    date: 'December 24, 2018'
+  },
 ];

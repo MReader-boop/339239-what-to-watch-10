@@ -6,38 +6,44 @@ import TabsReviewList from '../tabs-review-list/tabs-review-list';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+enum Tab {
+  Overview = 'overview',
+  Details = 'details',
+  Reviews = 'reviews',
+}
+
 type TabsProps = {
   film: Film;
 }
 
 function Tabs({film}: TabsProps): JSX.Element {
-  const [activeTab, setActiveTab] = useState<string>('overview');
+  const [activeTab, setActiveTab] = useState(Tab.Overview);
   return(
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          <li className={`film-nav__item ${activeTab === 'overview' ? 'film-nav__item--active' : ''}`}>
+          <li className={`film-nav__item ${activeTab === Tab.Overview ? 'film-nav__item--active' : ''}`}>
             <Link onClick={(evt) => {
               evt.preventDefault();
-              setActiveTab('overview');
+              setActiveTab(Tab.Overview);
             }} to="/" className="film-nav__link"
             >
               Overview
             </Link>
           </li>
-          <li className={`film-nav__item ${activeTab === 'details' ? 'film-nav__item--active' : ''}`}>
+          <li className={`film-nav__item ${activeTab === Tab.Details ? 'film-nav__item--active' : ''}`}>
             <Link onClick={(evt) => {
               evt.preventDefault();
-              setActiveTab('details');
+              setActiveTab(Tab.Details);
             }} to="/" className="film-nav__link"
             >
               Details
             </Link>
           </li>
-          <li className={`film-nav__item ${activeTab === 'reviews' ? 'film-nav__item--active' : ''}`}>
+          <li className={`film-nav__item ${activeTab === Tab.Reviews ? 'film-nav__item--active' : ''}`}>
             <Link onClick={(evt) => {
               evt.preventDefault();
-              setActiveTab('reviews');
+              setActiveTab(Tab.Reviews);
             }} to="/" className="film-nav__link"
             >
               Reviews
@@ -45,10 +51,13 @@ function Tabs({film}: TabsProps): JSX.Element {
           </li>
         </ul>
       </nav>
-      <div className="film-card__reviews film-card__row">
-        <TabsReviewList reviews={film.reviews} />
-        <TabsReviewList reviews={film.reviews} />
-      </div>
+      {activeTab === Tab.Overview ? <TabsOverview film={film}/> : ''}
+      {activeTab === Tab.Details ? <TabsDetails film={film}/> : ''}
+      {activeTab === Tab.Reviews ?
+        <div className="film-card__reviews film-card__row">
+          <TabsReviewList reviews={film.reviews.slice(0, Math.ceil(film.reviews.length / 2))} />
+          <TabsReviewList reviews={film.reviews.slice(Math.ceil(film.reviews.length / 2))} />
+        </div> : ''}
     </div>
   );
 }
