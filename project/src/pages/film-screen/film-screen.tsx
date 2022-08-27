@@ -18,7 +18,7 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
   }
 
   const similarFilms = films.filter((film) =>
-    (film.description.genre === currentFilm.description.genre) && (film !== currentFilm));
+    (film.description.genre === currentFilm.description.genre) && (film !== currentFilm)).slice(0, 4);
 
   return(
     <>
