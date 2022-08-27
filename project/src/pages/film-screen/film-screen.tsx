@@ -80,7 +80,7 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element {
               <img src={currentFilm.description.poster} alt={`${currentFilm.name} poster`} width="218" height="327" />
             </div>
 
-            <Tabs currentFilm={currentFilm}/>
+            <Tabs film={currentFilm}/>
 
           </div>
         </div>

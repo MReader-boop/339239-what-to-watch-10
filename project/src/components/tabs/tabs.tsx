@@ -2,30 +2,53 @@
 import {Film} from '../../types/film';
 import TabsOverview from '../tabs-overview/tabs-overview';
 import TabsDetails from '../tabs-details/tabs-details';
-import TabsReviews from '../tabs-reviews/tabs-reviews';
+import TabsReviewList from '../tabs-review-list/tabs-review-list';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 type TabsProps = {
-  currentFilm: Film;
+  film: Film;
 }
 
-function Tabs({currentFilm}: TabsProps): JSX.Element {
+function Tabs({film}: TabsProps): JSX.Element {
+  const [activeTab, setActiveTab] = useState<string>('overview');
   return(
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          <li className="film-nav__item film-nav__item--active">
-            <a href="#" className="film-nav__link">Overview</a>
+          <li className={`film-nav__item ${activeTab === 'overview' ? 'film-nav__item--active' : ''}`}>
+            <Link onClick={(evt) => {
+              evt.preventDefault();
+              setActiveTab('overview');
+            }} to="/" className="film-nav__link"
+            >
+              Overview
+            </Link>
           </li>
-          <li className="film-nav__item">
-            <a href="#" className="film-nav__link">Details</a>
+          <li className={`film-nav__item ${activeTab === 'details' ? 'film-nav__item--active' : ''}`}>
+            <Link onClick={(evt) => {
+              evt.preventDefault();
+              setActiveTab('details');
+            }} to="/" className="film-nav__link"
+            >
+              Details
+            </Link>
           </li>
-          <li className="film-nav__item">
-            <a href="#" className="film-nav__link">Reviews</a>
+          <li className={`film-nav__item ${activeTab === 'reviews' ? 'film-nav__item--active' : ''}`}>
+            <Link onClick={(evt) => {
+              evt.preventDefault();
+              setActiveTab('reviews');
+            }} to="/" className="film-nav__link"
+            >
+              Reviews
+            </Link>
           </li>
         </ul>
       </nav>
-
-      <TabsDetails currentFilm={currentFilm} />
+      <div className="film-card__reviews film-card__row">
+        <TabsReviewList reviews={film.reviews} />
+        <TabsReviewList reviews={film.reviews} />
+      </div>
     </div>
   );
 }

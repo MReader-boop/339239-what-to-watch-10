@@ -8,6 +8,7 @@ type FilmDescription = {
   starring: string[];
   poster: string;
   genre: string;
+  runtime: string,
   year: number;
 };
 
