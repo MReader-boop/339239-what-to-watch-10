@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import {Film} from '../../types/film';
+import Tabs from '../../components/tabs/tabs';
 
 type FilmScreenProps = {
   films: Film[]
@@ -79,37 +80,8 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element {
               <img src={currentFilm.description.poster} alt={`${currentFilm.name} poster`} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <Tabs currentFilm={currentFilm}/>
 
-              <div className="film-rating">
-                <div className="film-rating__score">{currentFilm.description.rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{currentFilm.description.votes} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                {currentFilm.description.description}
-
-                <p className="film-card__director"><strong>Director: {currentFilm.description.director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {currentFilm.description.starring.join(', ')} and other</strong></p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
