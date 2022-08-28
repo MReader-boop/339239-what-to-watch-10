@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import FilmList from '../../components/film-list/film-list';
-import { AppRoutes } from '../../const';
-import {Film} from '../../types/film';
-import { useNavigate } from 'react-router-dom';
 import GenreList from '../../components/genre-list/genre-list';
-import {Filters} from '../../const';
+import ShowMore from '../../components/show-more/show-more';
+import { AppRoutes, Filters } from '../../const';
+import {Film} from '../../types/film';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+
 
 const getFilteredFilms = (films: Film[], filter: string) => {
   if (filter === Filters.AllGenres) {
@@ -22,12 +25,13 @@ type HomeScreenProps = {
 function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
   const navigate = useNavigate();
   const currentFilter = useAppSelector((state) => state.currentFilter);
+  const [renderedFilms, setRenderedFilms] = useState<number>(8);
 
   if (films.length === 0) {
     return null;
   }
-  const filteredFilms = getFilteredFilms(films, currentFilter);
   const selectedFilm = films[0];
+  const filteredFilms = getFilteredFilms(films, currentFilter);
 
   return(
     <>
@@ -98,11 +102,17 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenreList currentFilter={currentFilter} filterList={filterList}/>
-          <FilmList films={filteredFilms}/>
+          <FilmList films={filteredFilms.slice(0, renderedFilms)}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {filteredFilms.length > 8 && renderedFilms !== filteredFilms.length ?
+            <ShowMore onClick={(evt) => {
+              const diff = filteredFilms.length - renderedFilms;
+              const newRenderedFilms =
+                renderedFilms + ((diff) > 8 ? 8 : diff);
+              setRenderedFilms(newRenderedFilms);
+            }}
+            />
+            : ''}
         </section>
 
         <footer className="page-footer">
