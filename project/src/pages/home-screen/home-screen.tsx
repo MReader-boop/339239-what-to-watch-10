@@ -25,13 +25,15 @@ type HomeScreenProps = {
 function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
   const navigate = useNavigate();
   const currentFilter = useAppSelector((state) => state.currentFilter);
-  const [renderedFilms, setRenderedFilms] = useState<number>(8);
+  const INITIALLY_RENDERED_FILM_AMOUNT = 8;
+  const [renderedFilmAmount, setRenderedFilmAmount] = useState<number>(INITIALLY_RENDERED_FILM_AMOUNT);
 
   if (films.length === 0) {
     return null;
   }
   const selectedFilm = films[0];
   const filteredFilms = getFilteredFilms(films, currentFilter);
+  const displayShowMoreButton = filteredFilms.length > 8 && renderedFilmAmount < filteredFilms.length;
 
   return(
     <>
@@ -101,18 +103,20 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList currentFilter={currentFilter} filterList={filterList}/>
-          <FilmList films={filteredFilms.slice(0, renderedFilms)}/>
+          <GenreList onChange={() => {
+            setRenderedFilmAmount(INITIALLY_RENDERED_FILM_AMOUNT);
+          }} currentFilter={currentFilter} filterList={filterList}
+          />
+          <FilmList films={filteredFilms.slice(0, renderedFilmAmount)}/>
 
-          {filteredFilms.length > 8 && renderedFilms !== filteredFilms.length ?
-            <ShowMore onClick={(evt) => {
-              const diff = filteredFilms.length - renderedFilms;
+          {displayShowMoreButton &&
+            <ShowMore onClick={() => {
+              const diff = filteredFilms.length - renderedFilmAmount;
               const newRenderedFilms =
-                renderedFilms + ((diff) > 8 ? 8 : diff);
-              setRenderedFilms(newRenderedFilms);
+                renderedFilmAmount + ((diff) > INITIALLY_RENDERED_FILM_AMOUNT ? INITIALLY_RENDERED_FILM_AMOUNT : diff);
+              setRenderedFilmAmount(newRenderedFilms);
             }}
-            />
-            : ''}
+            />}
         </section>
 
         <footer className="page-footer">
