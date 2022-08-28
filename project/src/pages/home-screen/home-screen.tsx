@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import FilmList from '../../components/film-list/film-list';
-import { AppRoutes } from '../../const';
-import {Film} from '../../types/film';
-import { useNavigate } from 'react-router-dom';
 import GenreList from '../../components/genre-list/genre-list';
-import {Filters} from '../../const';
+import ShowMore from '../../components/show-more/show-more';
+import { AppRoutes, Filters } from '../../const';
+import {Film} from '../../types/film';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+
 
 const getFilteredFilms = (films: Film[], filter: string) => {
   if (filter === Filters.AllGenres) {
@@ -22,12 +25,15 @@ type HomeScreenProps = {
 function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
   const navigate = useNavigate();
   const currentFilter = useAppSelector((state) => state.currentFilter);
+  const INITIALLY_RENDERED_FILM_AMOUNT = 8;
+  const [renderedFilmAmount, setRenderedFilmAmount] = useState<number>(INITIALLY_RENDERED_FILM_AMOUNT);
 
   if (films.length === 0) {
     return null;
   }
-  const filteredFilms = getFilteredFilms(films, currentFilter);
   const selectedFilm = films[0];
+  const filteredFilms = getFilteredFilms(films, currentFilter);
+  const displayShowMoreButton = filteredFilms.length > 8 && renderedFilmAmount < filteredFilms.length;
 
   return(
     <>
@@ -97,12 +103,20 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreList currentFilter={currentFilter} filterList={filterList}/>
-          <FilmList films={filteredFilms}/>
+          <GenreList onChange={() => {
+            setRenderedFilmAmount(INITIALLY_RENDERED_FILM_AMOUNT);
+          }} currentFilter={currentFilter} filterList={filterList}
+          />
+          <FilmList films={filteredFilms.slice(0, renderedFilmAmount)}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {displayShowMoreButton &&
+            <ShowMore onClick={() => {
+              const diff = filteredFilms.length - renderedFilmAmount;
+              const newRenderedFilms =
+                renderedFilmAmount + ((diff) > INITIALLY_RENDERED_FILM_AMOUNT ? INITIALLY_RENDERED_FILM_AMOUNT : diff);
+              setRenderedFilmAmount(newRenderedFilms);
+            }}
+            />}
         </section>
 
         <footer className="page-footer">

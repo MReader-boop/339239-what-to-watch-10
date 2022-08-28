@@ -5,6 +5,7 @@ import {changeCurrentFilter} from '../../store/action';
 type GenreListItemProps = {
   currentFilter: string;
   filter: string;
+  onClick: () => void;
 };
 
 const getFilterName = (filter: string): string => {
@@ -32,7 +33,7 @@ const getFilterName = (filter: string): string => {
   }
 };
 
-function GenreListItem({currentFilter, filter}: GenreListItemProps): JSX.Element {
+function GenreListItem({currentFilter, filter, onClick}: GenreListItemProps): JSX.Element {
   const dispatch = useAppDispatch();
   const filterName = getFilterName(filter);
   return(
@@ -41,6 +42,7 @@ function GenreListItem({currentFilter, filter}: GenreListItemProps): JSX.Element
         (evt: React.MouseEvent<HTMLElement>) => {
           evt.preventDefault();
           dispatch(changeCurrentFilter(filter));
+          onClick();
         }
       } href="/" className="catalog__genres-link"
       >

@@ -163,5 +163,185 @@ export const films: Film[] =
     },
     reviews: reviews
   },
+  {
+    name: 'Johnny English',
+    id: '8',
+    card: {
+      posterPreview: 'img/johnny-english.jpg',
+      videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    },
+    description: {
+      description: 'Johnny English',
+      rating: 5.2,
+      votes: 347,
+      director: 'Christopher Nolan',
+      starring: ['Bob Odenkirk', 'Aaron Paul'],
+      poster: 'img/johnny-english.jpg',
+      genre: 'drama',
+      runtime: '1h 30m',
+      year: 1984,
+    },
+    reviews: reviews
+  },
+  {
+    name: 'Johnny English',
+    id: '9',
+    card: {
+      posterPreview: 'img/johnny-english.jpg',
+      videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    },
+    description: {
+      description: 'Johnny English',
+      rating: 5.2,
+      votes: 347,
+      director: 'Christopher Nolan',
+      starring: ['Bob Odenkirk', 'Aaron Paul'],
+      poster: 'img/johnny-english.jpg',
+      genre: 'drama',
+      runtime: '1h 30m',
+      year: 1984,
+    },
+    reviews: reviews
+  },
+  {
+    name: 'Johnny English',
+    id: '10',
+    card: {
+      posterPreview: 'img/johnny-english.jpg',
+      videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    },
+    description: {
+      description: 'Johnny English',
+      rating: 5.2,
+      votes: 347,
+      director: 'Christopher Nolan',
+      starring: ['Bob Odenkirk', 'Aaron Paul'],
+      poster: 'img/johnny-english.jpg',
+      genre: 'drama',
+      runtime: '1h 30m',
+      year: 1984,
+    },
+    reviews: reviews
+  },
+  {
+    name: 'Johnny English',
+    id: '11',
+    card: {
+      posterPreview: 'img/johnny-english.jpg',
+      videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    },
+    description: {
+      description: 'Johnny English',
+      rating: 5.2,
+      votes: 347,
+      director: 'Christopher Nolan',
+      starring: ['Bob Odenkirk', 'Aaron Paul'],
+      poster: 'img/johnny-english.jpg',
+      genre: 'drama',
+      runtime: '1h 30m',
+      year: 1984,
+    },
+    reviews: reviews
+  },
+  {
+    name: 'Johnny English',
+    id: '12',
+    card: {
+      posterPreview: 'img/johnny-english.jpg',
+      videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    },
+    description: {
+      description: 'Johnny English',
+      rating: 5.2,
+      votes: 347,
+      director: 'Christopher Nolan',
+      starring: ['Bob Odenkirk', 'Aaron Paul'],
+      poster: 'img/johnny-english.jpg',
+      genre: 'drama',
+      runtime: '1h 30m',
+      year: 1984,
+    },
+    reviews: reviews
+  },
+  {
+    name: 'Johnny English',
+    id: '13',
+    card: {
+      posterPreview: 'img/johnny-english.jpg',
+      videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    },
+    description: {
+      description: 'Johnny English',
+      rating: 5.2,
+      votes: 347,
+      director: 'Christopher Nolan',
+      starring: ['Bob Odenkirk', 'Aaron Paul'],
+      poster: 'img/johnny-english.jpg',
+      genre: 'drama',
+      runtime: '1h 30m',
+      year: 1984,
+    },
+    reviews: reviews
+  },
+  {
+    name: 'Johnny English',
+    id: '14',
+    card: {
+      posterPreview: 'img/johnny-english.jpg',
+      videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    },
+    description: {
+      description: 'Johnny English',
+      rating: 5.2,
+      votes: 347,
+      director: 'Christopher Nolan',
+      starring: ['Bob Odenkirk', 'Aaron Paul'],
+      poster: 'img/johnny-english.jpg',
+      genre: 'drama',
+      runtime: '1h 30m',
+      year: 1984,
+    },
+    reviews: reviews
+  },
+  {
+    name: 'Johnny English',
+    id: '15',
+    card: {
+      posterPreview: 'img/johnny-english.jpg',
+      videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    },
+    description: {
+      description: 'Johnny English',
+      rating: 5.2,
+      votes: 347,
+      director: 'Christopher Nolan',
+      starring: ['Bob Odenkirk', 'Aaron Paul'],
+      poster: 'img/johnny-english.jpg',
+      genre: 'drama',
+      runtime: '1h 30m',
+      year: 1984,
+    },
+    reviews: reviews
+  },
+  {
+    name: 'Johnny English',
+    id: '16',
+    card: {
+      posterPreview: 'img/johnny-english.jpg',
+      videoPreview: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    },
+    description: {
+      description: 'Johnny English',
+      rating: 5.2,
+      votes: 347,
+      director: 'Christopher Nolan',
+      starring: ['Bob Odenkirk', 'Aaron Paul'],
+      poster: 'img/johnny-english.jpg',
+      genre: 'drama',
+      runtime: '1h 30m',
+      year: 1984,
+    },
+    reviews: reviews
+  },
 ];
 
