@@ -178,6 +178,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -197,6 +198,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -216,6 +218,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -235,6 +238,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -254,6 +258,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -273,6 +278,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -292,6 +298,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -311,6 +318,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -330,6 +338,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
