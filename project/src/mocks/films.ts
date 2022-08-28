@@ -18,6 +18,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
       genre: 'horror',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -37,6 +38,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/bohemian-rhapsody.jpg',
       genre: 'horror',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -56,6 +58,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/macbeth.jpg',
       genre: 'comedy',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -75,6 +78,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/aviator.jpg',
       genre: 'crime',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -94,6 +98,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/we-need-to-talk-about-kevin.jpg',
       genre: 'documentary',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -113,6 +118,7 @@ export const films: Film[] =
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/what-we-do-in-the-shadows.jpg',
       genre: 'drama',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -131,7 +137,8 @@ export const films: Film[] =
       director: 'Christopher Nolan',
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/revenant.jpg',
-      genre: 'romance',
+      genre: 'documentary',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
@@ -150,7 +157,8 @@ export const films: Film[] =
       director: 'Christopher Nolan',
       starring: ['Bob Odenkirk', 'Aaron Paul'],
       poster: 'img/johnny-english.jpg',
-      genre: 'drama',
+      genre: 'sci-fi',
+      runtime: '1h 30m',
       year: 1984,
     },
     reviews: reviews
