@@ -25,10 +25,11 @@ type HomeScreenProps = {
 function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
   const navigate = useNavigate();
   const currentFilter = useAppSelector((state) => state.currentFilter);
+  const isDataLoading = useAppSelector((state) => state.isDataLoading);
   const INITIALLY_RENDERED_FILM_AMOUNT = 8;
   const [renderedFilmAmount, setRenderedFilmAmount] = useState<number>(INITIALLY_RENDERED_FILM_AMOUNT);
 
-  if (films.length === 0) {
+  if (isDataLoading) {
     return null;
   }
   const selectedFilm = films[0];

@@ -13,3 +13,7 @@ export const changeFilterList = createAction('films/changeFilterList', (filters)
 export const loadFilms = createAction('films/loadFilms', (films) => ({
   payload: films
 }));
+
+export const isDataLoading = createAction('films/isDataLoading', (status) => ({
+  payload: status
+}));

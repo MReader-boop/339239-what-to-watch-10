@@ -1,4 +1,4 @@
-import { loadFilms, changeCurrentFilter, changeFilterList } from './action';
+import { loadFilms, changeCurrentFilter, changeFilterList, isDataLoading } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import {Filters} from '../const';
 import {Film} from '../types/film';
@@ -7,12 +7,14 @@ type State = {
   currentFilter: string;
   filmList: Film[] | [];
   filterList: string[];
+  isDataLoading: boolean;
 };
 
 const initialState: State = {
   currentFilter: Filters.AllGenres,
   filmList: [],
   filterList: [Filters.AllGenres],
+  isDataLoading: false,
 };
 
 const reducer = createReducer(
@@ -27,6 +29,9 @@ const reducer = createReducer(
       })
       .addCase(changeFilterList, (state, action) => {
         state.filterList = action.payload;
+      })
+      .addCase(isDataLoading, (state, action) => {
+        state.isDataLoading = action.payload;
       });
   }
 );

@@ -25,3 +25,7 @@ export enum Filters {
   SciFi = 'sci-fi',
   Thrillers = 'thriller',
 }
+
+export enum APIRoute {
+  Films = '/films',
+}
