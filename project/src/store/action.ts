@@ -10,4 +10,6 @@ export const changeFilterList = createAction('films/changeFilterList', (filters)
 })
 );
 
-export const loadFilms = createAction('films/loadFilms');
+export const loadFilms = createAction('films/loadFilms', (films) => ({
+  payload: films
+}));
