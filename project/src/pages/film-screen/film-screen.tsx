@@ -11,21 +11,24 @@ type FilmScreenProps = {
 function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
   const {id} = useParams();
   const navigate = useNavigate();
-  const currentFilm = films.find((film) => film.id === id);
+  if (id === undefined) {
+    return(<Navigate to='/*' />);
+  }
+  const currentFilm = films.find((film) => film.id === +id);
 
   if(currentFilm === undefined){
     return(<Navigate to='/*' />);
   }
 
   const similarFilms = films.filter((film) =>
-    (film.description.genre === currentFilm.description.genre) && (film !== currentFilm)).slice(0, 4);
+    (film.genre === currentFilm.genre) && (film !== currentFilm)).slice(0, 4);
 
   return(
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={currentFilm.description.poster} alt={currentFilm.name} />
+            <img src={currentFilm.backgroundImage} alt={currentFilm.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -55,8 +58,8 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
             <div className="film-card__desc">
               <h2 className="film-card__title">{currentFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{currentFilm.description.genre}</span>
-                <span className="film-card__year">{currentFilm.description.year}</span>
+                <span className="film-card__genre">{currentFilm.genre}</span>
+                <span className="film-card__year">{currentFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -82,7 +85,7 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={currentFilm.description.poster} alt={`${currentFilm.name} poster`} width="218" height="327" />
+              <img src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} width="218" height="327" />
             </div>
 
             <Tabs film={currentFilm}/>

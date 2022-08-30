@@ -1,26 +1,21 @@
-import {Review} from '../types/review';
-
-type FilmDescription = {
-  description: string;
-  rating: number;
-  votes: number;
-  director: string;
-  starring: string[];
-  poster: string;
-  genre: string;
-  runtime: string,
-  year: number;
-};
-
-type FilmCard = {
-  posterPreview: string;
-  videoPreview: string;
-};
+//import {Review} from '../types/review';
 
 export type Film = {
-  id: string;
+  id: number;
   name: string;
-  card: FilmCard;
-  description: FilmDescription;
-  reviews: Review[];
+  posterImage: string;
+  previewImage: string;
+  backgroundImage: string;
+  backgroundColor: string;
+  videoLink: string;
+  previewVideoLink: string;
+  description: string;
+  rating: number;
+  scoresCount: number;
+  director: string;
+  starring: string[];
+  runTime: string,
+  genre: string;
+  released: number;
+  isFavorite: boolean;
 };

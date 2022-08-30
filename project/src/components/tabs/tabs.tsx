@@ -5,6 +5,7 @@ import TabsDetails from '../tabs-details/tabs-details';
 import TabsReviewList from '../tabs-review-list/tabs-review-list';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { reviews } from '../../mocks/reviews';
 
 enum Tab {
   Overview = 'overview',
@@ -55,8 +56,8 @@ function Tabs({film}: TabsProps): JSX.Element {
       {activeTab === Tab.Details ? <TabsDetails film={film}/> : ''}
       {activeTab === Tab.Reviews ?
         <div className="film-card__reviews film-card__row">
-          <TabsReviewList reviews={film.reviews.slice(0, Math.ceil(film.reviews.length / 2))} />
-          <TabsReviewList reviews={film.reviews.slice(Math.ceil(film.reviews.length / 2))} />
+          <TabsReviewList reviews={reviews.slice(0, Math.ceil(reviews.length / 2))} />
+          <TabsReviewList reviews={reviews.slice(Math.ceil(reviews.length / 2))} />
         </div> : ''}
     </div>
   );

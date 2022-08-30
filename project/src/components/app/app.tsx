@@ -16,8 +16,8 @@ import { Film } from '../../types/film';
 const getFilterList = (films: Film[]): string[] => {
   const result: string[] = [];
   films.forEach((film) => {
-    if (!result.includes(film.description.genre)) {
-      result.push(film.description.genre);
+    if (!result.includes(film.genre)) {
+      result.push(film.genre);
     }
   });
 
@@ -37,7 +37,7 @@ function App(): JSX.Element {
         <Route path = {AppRoutes.SignIn} element = {<SignInScreen />}/>
         <Route path = {AppRoutes.MyList}
           element = {
-            <PrivateRoute authStatus = {AuthStatus.Authed} >
+            <PrivateRoute authStatus = {AuthStatus.NotAuthed} >
               <MyListScreen films={films}/>
             </PrivateRoute>
           }

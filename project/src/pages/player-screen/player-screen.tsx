@@ -13,14 +13,17 @@ type PlayerScreenProps = {
 function PlayerScreen({films}: PlayerScreenProps): JSX.Element {
   const {id} = useParams();
 
-  const currentFilm = films.find((film) => film.id === id);
+  if (id === undefined) {
+    return(<Navigate to='/*' />);
+  }
+  const currentFilm = films.find((film) => film.id === +id);
 
   if(currentFilm === undefined){
     return(<Navigate to='/*' />);
   }
   return(
     <div className="player">
-      <video src="#" className="player__video" poster={currentFilm.card.posterPreview}></video>
+      <video src="#" className="player__video" poster={currentFilm.backgroundImage}></video>
 
       <Link to={AppRoutes.Main}>
         <button type="button" className="player__exit">Exit</button>
