@@ -5,7 +5,7 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { fetchFilmsAction } from './services/api-actions';
 
-store.dispatch(fetchFilmsAction);
+store.dispatch(fetchFilmsAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

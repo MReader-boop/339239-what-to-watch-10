@@ -16,8 +16,8 @@ import { Film } from '../../types/film';
 const getFilterList = (films: Film[]): string[] => {
   const result: string[] = [];
   films.forEach((film) => {
-    if (!result.includes(film.description.genre)) {
-      result.push(film.description.genre);
+    if (!result.includes(film.genre)) {
+      result.push(film.genre);
     }
   });
 

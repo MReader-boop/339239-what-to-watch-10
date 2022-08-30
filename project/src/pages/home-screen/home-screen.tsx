@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import FilmList from '../../components/film-list/film-list';
 import GenreList from '../../components/genre-list/genre-list';
 import ShowMore from '../../components/show-more/show-more';
@@ -13,7 +12,7 @@ const getFilteredFilms = (films: Film[], filter: string) => {
   if (filter === Filters.AllGenres) {
     return films;
   } else {
-    return films.filter((film) => film.description.genre === filter);
+    return films.filter((film) => film.genre === filter);
   }
 };
 
@@ -40,7 +39,7 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={selectedFilm.description.poster} alt={selectedFilm.name} />
+          <img src={selectedFilm.backgroundImage} alt={selectedFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -69,14 +68,14 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={selectedFilm.description.poster} alt={`${selectedFilm.name} poster`} width="218" height="327" />
+              <img src={selectedFilm.posterImage} alt={`${selectedFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
               <h2 className="film-card__title">{selectedFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{selectedFilm.description.genre}</span>
-                <span className="film-card__year">{selectedFilm.description.year}</span>
+                <span className="film-card__genre">{selectedFilm.genre}</span>
+                <span className="film-card__year">{selectedFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">

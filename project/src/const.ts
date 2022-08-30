@@ -14,16 +14,19 @@ export enum AuthStatus {
 }
 
 export enum Filters {
-  AllGenres = 'all',
-  Comedies = 'comedy',
-  Crime = 'crime',
-  Documentary = 'documentary',
-  Dramas = 'drama',
-  Horror = 'horror',
-  KidsAndFamily = 'kids-and-family',
-  Romance = 'romance',
-  SciFi = 'sci-fi',
-  Thrillers = 'thriller',
+  AllGenres = 'All',
+  Comedies = 'Comedy',
+  Crime = 'Crime',
+  Adventure = 'Adventure',
+  Documentary = 'Documentary',
+  Dramas = 'Drama',
+  Horror = 'Horror',
+  KidsAndFamily = 'Kids & Family',
+  Romance = 'Romance',
+  SciFi = 'Sci-Fi',
+  Thrillers = 'Thriller',
+  Fantasy = 'Fantasy',
+  Action = 'Action'
 }
 
 export enum APIRoute {
