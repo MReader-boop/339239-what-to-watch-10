@@ -1,4 +1,4 @@
-import {AppRoutes, AuthStatus} from '../../const';
+import {AppRoutes} from '../../const';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeFilterList } from '../../store/action';
@@ -27,6 +27,7 @@ const getFilterList = (films: Film[]): string[] => {
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const films = useAppSelector((state) => state.filmList);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const filterList = getFilterList(films);
   dispatch(changeFilterList([Filters.AllGenres, ...filterList]));
 
@@ -37,7 +38,7 @@ function App(): JSX.Element {
         <Route path = {AppRoutes.SignIn} element = {<SignInScreen />}/>
         <Route path = {AppRoutes.MyList}
           element = {
-            <PrivateRoute authStatus = {AuthStatus.NotAuthed} >
+            <PrivateRoute authStatus = {authStatus} >
               <MyListScreen films={films}/>
             </PrivateRoute>
           }

@@ -6,6 +6,7 @@ import {Film} from '../../types/film';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+import PageHeader from '../../components/page-header/page-header';
 
 
 const getFilteredFilms = (films: Film[], filter: string) => {
@@ -25,6 +26,7 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
   const navigate = useNavigate();
   const currentFilter = useAppSelector((state) => state.currentFilter);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const INITIALLY_RENDERED_FILM_AMOUNT = 8;
   const [renderedFilmAmount, setRenderedFilmAmount] = useState<number>(INITIALLY_RENDERED_FILM_AMOUNT);
 
@@ -44,26 +46,7 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <PageHeader authStatus={authStatus}/>
 
         <div className="film-card__wrap">
           <div className="film-card__info">

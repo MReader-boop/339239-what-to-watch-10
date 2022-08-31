@@ -3,6 +3,8 @@ import { AppRoutes } from '../../const';
 import {Film} from '../../types/film';
 import Tabs from '../../components/tabs/tabs';
 import FilmList from '../../components/film-list/film-list';
+import PageHeader from '../../components/page-header/page-header';
+import { useAppSelector } from '../../hooks';
 
 type FilmScreenProps = {
   films: Film[]
@@ -11,6 +13,8 @@ type FilmScreenProps = {
 function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
   const {id} = useParams();
   const navigate = useNavigate();
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+
   if (id === undefined) {
     return(<Navigate to='/*' />);
   }
@@ -33,26 +37,7 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to={AppRoutes.Main} className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <PageHeader authStatus={authStatus}/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
