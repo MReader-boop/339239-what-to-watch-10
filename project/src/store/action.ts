@@ -21,3 +21,7 @@ export const isDataLoading = createAction('films/isDataLoading', (status) => ({
 export const setAuthStatus = createAction('films/setAuthStatus', (status) => ({
   payload: status
 }));
+
+export const setError = createAction('game/setError', (status) => ({
+  payload: status
+}));
