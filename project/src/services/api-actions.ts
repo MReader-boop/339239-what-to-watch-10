@@ -3,10 +3,11 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import { UserData } from '../types/user-data.js';
 import { AuthData } from '../types/auth-data.js';
-import {APIRoute, AuthStatus} from '../const';
-import {isDataLoading, loadFilms, setAuthStatus} from '../store/action';
+import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
+import {isDataLoading, loadFilms, setAuthStatus, setError} from '../store/action';
 import { Film } from '../types/film.js';
 import { saveToken, dropToken } from './token.js';
+import {store} from '../store';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -61,5 +62,15 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(setAuthStatus(AuthStatus.NotAuthed));
+  },
+);
+
+export const clearErrorAction = createAsyncThunk(
+  'game/clearError',
+  () => {
+    setTimeout(
+      () => store.dispatch(setError(null)),
+      TIMEOUT_SHOW_ERROR,
+    );
   },
 );
