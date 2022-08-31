@@ -1,51 +1,32 @@
 import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../const';
-import {FormEvent, useState} from 'react';
+import {useRef, FormEvent} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../services/api-actions';
-import {setError} from '../../store/action';
 import {AuthData} from '../../types/auth-data';
 
 function SignInScreen(): JSX.Element {
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const error = useAppSelector((store) => store.error);
 
-  const [authData, setAuthData] = useState<{
-    email: string | undefined;
-    password: string | undefined;
-  }>({
-    email: undefined,
-    password: undefined,
-  });
-
-  const onSubmit = (authenticationData: AuthData) => {
-    dispatch(loginAction(authenticationData));
+  const onSubmit = (authData: AuthData) => {
+    dispatch(loginAction(authData));
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (authData.email !== undefined && authData.password !== undefined) {
-      dispatch(setError(null));
+    if (emailRef.current !== null && passwordRef.current !== null) {
       onSubmit({
-        email: authData.email,
-        password: authData.password,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
       });
       navigate(AppRoutes.Main);
     }
-  };
-
-  const handleEmailChange = (evt: any) => {
-    setAuthData({...authData,
-      email: evt.target.value});
-  };
-
-  const handlePasswordChange = (evt: any) => {
-    setAuthData({...authData,
-      password: evt.target.value});
   };
 
   return(
@@ -68,10 +49,6 @@ function SignInScreen(): JSX.Element {
           className="sign-in__form"
           onSubmit={handleSubmit}
         >
-          {error ?
-            <div className="sign-in__message">
-              <p>{error}</p>
-            </div> : ''}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -80,8 +57,7 @@ function SignInScreen(): JSX.Element {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
-                value={authData.email}
-                onChange={handleEmailChange}
+                ref={emailRef}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
@@ -92,8 +68,7 @@ function SignInScreen(): JSX.Element {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
-                value={authData.password}
-                onChange={handlePasswordChange}
+                ref={passwordRef}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>

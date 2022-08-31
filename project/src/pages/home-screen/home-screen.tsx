@@ -1,7 +1,7 @@
 import FilmList from '../../components/film-list/film-list';
 import GenreList from '../../components/genre-list/genre-list';
 import ShowMore from '../../components/show-more/show-more';
-import { AppRoutes, Filters } from '../../const';
+import { AppRoutes, AuthStatus, Filters } from '../../const';
 import {Film} from '../../types/film';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -69,13 +69,15 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
                   <span>Play</span>
                 </button>
 
-                <button onClick={() => navigate(AppRoutes.MyList)} className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                {authStatus === AuthStatus.Authed ?
+                  <button onClick={() => navigate(AppRoutes.MyList)} className="btn btn--list film-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                    <span>My list</span>
+                    <span className="film-card__count">9</span>
+                  </button> :
+                  ''}
               </div>
             </div>
           </div>
