@@ -17,3 +17,7 @@ export const loadFilms = createAction('films/loadFilms', (films) => ({
 export const isDataLoading = createAction('films/isDataLoading', (status) => ({
   payload: status
 }));
+
+export const setAuthStatus = createAction('films/setAuthStatus', (status) => ({
+  payload: status
+}));

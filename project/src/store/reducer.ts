@@ -1,6 +1,6 @@
-import { loadFilms, changeCurrentFilter, changeFilterList, isDataLoading } from './action';
+import { loadFilms, changeCurrentFilter, changeFilterList, isDataLoading, setAuthStatus } from './action';
 import { createReducer } from '@reduxjs/toolkit';
-import {Filters} from '../const';
+import {Filters, AuthStatus} from '../const';
 import {Film} from '../types/film';
 
 type State = {
@@ -8,6 +8,7 @@ type State = {
   filmList: Film[] | [];
   filterList: string[];
   isDataLoading: boolean;
+  authorizationStatus: AuthStatus;
 };
 
 const initialState: State = {
@@ -15,6 +16,7 @@ const initialState: State = {
   filmList: [],
   filterList: [Filters.AllGenres],
   isDataLoading: false,
+  authorizationStatus: AuthStatus.Unknown,
 };
 
 const reducer = createReducer(
@@ -32,6 +34,9 @@ const reducer = createReducer(
       })
       .addCase(isDataLoading, (state, action) => {
         state.isDataLoading = action.payload;
+      })
+      .addCase(setAuthStatus, (state, action) => {
+        state.authorizationStatus = action.payload;
       });
   }
 );
