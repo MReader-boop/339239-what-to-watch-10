@@ -6,7 +6,8 @@ import Tabs from '../../components/tabs/tabs';
 import FilmList from '../../components/film-list/film-list';
 import PageHeader from '../../components/page-header/page-header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFilmAction } from '../../services/api-actions';
+import { fetchCurrentFilmAction, fetchSimilarFilmsAction } from '../../services/api-actions';
+import { useEffect } from 'react';
 
 type FilmScreenProps = {
   films: Film[]
@@ -16,21 +17,22 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
   const {id} = useParams();
   const navigate = useNavigate();
   const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const isDataLoading = useAppSelector((state) => state.isDataLoading);
   const dispatch = useAppDispatch();
-  dispatch(fetchFilmAction(id));
+
+  useEffect(() => {
+    dispatch(fetchCurrentFilmAction(id));
+    dispatch(fetchSimilarFilmsAction(id));
+  }, [id]);
+
+  const similarFilms = useAppSelector((store) => store.similarFilmsList);
   const currentFilm = useAppSelector((store) => store.currentFilm);
 
-  if(isDataLoading){
+  if(currentFilm === null || similarFilms === []){
     return(null);
   }
 
-  if(currentFilm === null){
-    return(<Navigate to='/*' />);
-  }
-
-  const similarFilms = films.filter((film) =>
-    (film.genre === currentFilm.genre) && (film !== currentFilm)).slice(0, 4);
+  // const similarFilms = films.filter((film) =>
+  //   (film.genre === currentFilm.genre) && (film !== currentFilm)).slice(0, 4);
 
   return(
     <>

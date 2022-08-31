@@ -23,7 +23,7 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchFilmAction = createAsyncThunk<void, string | undefined, {
+export const fetchCurrentFilmAction = createAsyncThunk<void, string | undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -32,6 +32,20 @@ export const fetchFilmAction = createAsyncThunk<void, string | undefined, {
   async (filmId, {dispatch, extra: api}) => {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    dispatch(loadCurrentFilm(data));
+    dispatch(isDataLoading(false));
+  },
+);
+
+export const fetchSimilarFilmsAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchFilm',
+  async (filmId, {dispatch, extra: api}) => {
+    dispatch(isDataLoading(true));
+    const {data} = await api.get<Film[]>(`${APIRoute.Films}/${filmId}/similar`);
     dispatch(loadCurrentFilm(data));
     dispatch(isDataLoading(false));
   },

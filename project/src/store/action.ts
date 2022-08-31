@@ -18,14 +18,22 @@ export const loadCurrentFilm = createAction('films/loadCurrentFilm', (currentFil
   payload: currentFilm
 }));
 
+export const loadPromoFilm = createAction('films/loadPromoFilm', (promoFilm) => ({
+  payload: promoFilm
+}));
+
+export const loadSimilarFilms = createAction('films/loadSimilarFilms', (similarFilms) => ({
+  payload: similarFilms
+}));
+
 export const isDataLoading = createAction('films/isDataLoading', (status) => ({
   payload: status
 }));
 
-export const setAuthStatus = createAction('films/setAuthStatus', (status) => ({
+export const setAuthStatus = createAction('user/setAuthStatus', (status) => ({
   payload: status
 }));
 
-export const setError = createAction('game/setError', (status) => ({
+export const setError = createAction('data/setError', (status) => ({
   payload: status
 }));
