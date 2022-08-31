@@ -1,11 +1,12 @@
 import FilmList from '../../components/film-list/film-list';
 import GenreList from '../../components/genre-list/genre-list';
 import ShowMore from '../../components/show-more/show-more';
-import { AppRoutes, Filters } from '../../const';
+import { AppRoutes, AuthStatus, Filters } from '../../const';
 import {Film} from '../../types/film';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+import PageHeader from '../../components/page-header/page-header';
 
 
 const getFilteredFilms = (films: Film[], filter: string) => {
@@ -25,13 +26,14 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
   const navigate = useNavigate();
   const currentFilter = useAppSelector((state) => state.currentFilter);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const promoFilm = useAppSelector((state) => state.promoFilm);
   const INITIALLY_RENDERED_FILM_AMOUNT = 8;
   const [renderedFilmAmount, setRenderedFilmAmount] = useState<number>(INITIALLY_RENDERED_FILM_AMOUNT);
 
-  if (isDataLoading) {
+  if (isDataLoading || promoFilm === null) {
     return null;
   }
-  const selectedFilm = films[0];
   const filteredFilms = getFilteredFilms(films, currentFilter);
   const displayShowMoreButton = filteredFilms.length > 8 && renderedFilmAmount < filteredFilms.length;
 
@@ -39,60 +41,43 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={selectedFilm.backgroundImage} alt={selectedFilm.name} />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <PageHeader authStatus={authStatus}/>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={selectedFilm.posterImage} alt={`${selectedFilm.name} poster`} width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{selectedFilm.name}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{selectedFilm.genre}</span>
-                <span className="film-card__year">{selectedFilm.released}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button onClick={() => navigate(`/player/${selectedFilm.id}`)} className="btn btn--play film-card__button" type="button">
+                <button onClick={() => navigate(`/player/${promoFilm.id}`)} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
 
-                <button onClick={() => navigate(AppRoutes.MyList)} className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                {authStatus === AuthStatus.Authed ?
+                  <button onClick={() => navigate(AppRoutes.MyList)} className="btn btn--list film-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                    <span>My list</span>
+                    <span className="film-card__count">9</span>
+                  </button> :
+                  ''}
               </div>
             </div>
           </div>

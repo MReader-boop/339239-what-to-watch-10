@@ -1,8 +1,13 @@
-import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import {Film} from '../../types/film';
 import Tabs from '../../components/tabs/tabs';
 import FilmList from '../../components/film-list/film-list';
+import PageHeader from '../../components/page-header/page-header';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchCurrentFilmAction, fetchSimilarFilmsAction } from '../../services/api-actions';
+import { useEffect } from 'react';
 
 type FilmScreenProps = {
   films: Film[]
@@ -11,17 +16,20 @@ type FilmScreenProps = {
 function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
   const {id} = useParams();
   const navigate = useNavigate();
-  if (id === undefined) {
-    return(<Navigate to='/*' />);
-  }
-  const currentFilm = films.find((film) => film.id === +id);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
 
-  if(currentFilm === undefined){
-    return(<Navigate to='/*' />);
-  }
+  useEffect(() => {
+    dispatch(fetchCurrentFilmAction(id));
+    dispatch(fetchSimilarFilmsAction(id));
+  }, [id]);
 
-  const similarFilms = films.filter((film) =>
-    (film.genre === currentFilm.genre) && (film !== currentFilm)).slice(0, 4);
+  const similarFilms = useAppSelector((store) => store.similarFilmsList);
+  const currentFilm = useAppSelector((store) => store.currentFilm);
+
+  if(currentFilm === null || similarFilms === []){
+    return(null);
+  }
 
   return(
     <>
@@ -33,26 +41,7 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to={AppRoutes.Main} className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link">Sign out</a>
-              </li>
-            </ul>
-          </header>
+          <PageHeader authStatus={authStatus}/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">

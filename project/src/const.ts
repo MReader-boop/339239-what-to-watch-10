@@ -31,4 +31,10 @@ export enum Filters {
 
 export enum APIRoute {
   Films = '/films',
+  Favorite = '/favorite',
+  Promo = '/promo',
+  Login = '/login',
+  Logout = '/logout',
 }
+
+export const TIMEOUT_SHOW_ERROR = 2000;

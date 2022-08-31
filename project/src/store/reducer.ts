@@ -1,20 +1,39 @@
-import { loadFilms, changeCurrentFilter, changeFilterList, isDataLoading } from './action';
+import { loadFilms,
+  changeCurrentFilter,
+  changeFilterList,
+  isDataLoading,
+  setAuthStatus,
+  setError,
+  loadCurrentFilm,
+  loadPromoFilm,
+  loadSimilarFilms
+} from './action';
 import { createReducer } from '@reduxjs/toolkit';
-import {Filters} from '../const';
+import {Filters, AuthStatus} from '../const';
 import {Film} from '../types/film';
 
 type State = {
   currentFilter: string;
+  promoFilm: Film | null;
+  currentFilm: Film | null;
+  similarFilmsList: Film[] | [];
   filmList: Film[] | [];
   filterList: string[];
   isDataLoading: boolean;
+  authorizationStatus: AuthStatus;
+  error: string | null;
 };
 
 const initialState: State = {
   currentFilter: Filters.AllGenres,
   filmList: [],
+  currentFilm: null,
+  promoFilm: null,
+  similarFilmsList: [],
   filterList: [Filters.AllGenres],
   isDataLoading: false,
+  authorizationStatus: AuthStatus.Unknown,
+  error: null
 };
 
 const reducer = createReducer(
@@ -32,6 +51,21 @@ const reducer = createReducer(
       })
       .addCase(isDataLoading, (state, action) => {
         state.isDataLoading = action.payload;
+      })
+      .addCase(setAuthStatus, (state, action) => {
+        state.authorizationStatus = action.payload;
+      })
+      .addCase(setError, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(loadCurrentFilm, (state, action) => {
+        state.currentFilm = action.payload;
+      })
+      .addCase(loadPromoFilm, (state, action) => {
+        state.promoFilm = action.payload;
+      })
+      .addCase(loadSimilarFilms, (state, action) => {
+        state.similarFilmsList = action.payload;
       });
   }
 );
