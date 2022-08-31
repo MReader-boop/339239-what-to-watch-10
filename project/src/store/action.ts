@@ -14,6 +14,10 @@ export const loadFilms = createAction('films/loadFilms', (films) => ({
   payload: films
 }));
 
+export const loadCurrentFilm = createAction('films/loadCurrentFilm', (currentFilm) => ({
+  payload: currentFilm
+}));
+
 export const isDataLoading = createAction('films/isDataLoading', (status) => ({
   payload: status
 }));

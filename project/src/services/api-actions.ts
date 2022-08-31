@@ -4,7 +4,7 @@ import {AppDispatch, State} from '../types/state';
 import { UserData } from '../types/user-data';
 import { AuthData } from '../types/auth-data';
 import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
-import {isDataLoading, loadFilms, setAuthStatus, setError} from '../store/action';
+import {isDataLoading, loadFilms, loadCurrentFilm, setAuthStatus, setError} from '../store/action';
 import { Film } from '../types/film';
 import { saveToken, dropToken } from './token';
 import {store} from '../store';
@@ -19,6 +19,20 @@ export const fetchFilmsAction = createAsyncThunk<void, undefined, {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film[]>(APIRoute.Films);
     dispatch(loadFilms(data));
+    dispatch(isDataLoading(false));
+  },
+);
+
+export const fetchFilmAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchFilm',
+  async (filmId, {dispatch, extra: api}) => {
+    dispatch(isDataLoading(true));
+    const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+    dispatch(loadCurrentFilm(data));
     dispatch(isDataLoading(false));
   },
 );

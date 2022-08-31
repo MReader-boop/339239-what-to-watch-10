@@ -31,6 +31,8 @@ export enum Filters {
 
 export enum APIRoute {
   Films = '/films',
+  Favorite = '/favorite',
+  Promo = '/promo',
   Login = '/login',
   Logout = '/logout',
 }

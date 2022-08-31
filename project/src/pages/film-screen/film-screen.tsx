@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import {Film} from '../../types/film';
 import Tabs from '../../components/tabs/tabs';
 import FilmList from '../../components/film-list/film-list';
 import PageHeader from '../../components/page-header/page-header';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFilmAction } from '../../services/api-actions';
 
 type FilmScreenProps = {
   films: Film[]
@@ -14,13 +16,16 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
   const {id} = useParams();
   const navigate = useNavigate();
   const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const isDataLoading = useAppSelector((state) => state.isDataLoading);
+  const dispatch = useAppDispatch();
+  dispatch(fetchFilmAction(id));
+  const currentFilm = useAppSelector((store) => store.currentFilm);
 
-  if (id === undefined) {
-    return(<Navigate to='/*' />);
+  if(isDataLoading){
+    return(null);
   }
-  const currentFilm = films.find((film) => film.id === +id);
 
-  if(currentFilm === undefined){
+  if(currentFilm === null){
     return(<Navigate to='/*' />);
   }
 
