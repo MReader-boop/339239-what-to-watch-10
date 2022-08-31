@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Link, Navigate, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import {Film} from '../../types/film';
 import Tabs from '../../components/tabs/tabs';
@@ -30,9 +30,6 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
   if(currentFilm === null || similarFilms === []){
     return(null);
   }
-
-  // const similarFilms = films.filter((film) =>
-  //   (film.genre === currentFilm.genre) && (film !== currentFilm)).slice(0, 4);
 
   return(
     <>

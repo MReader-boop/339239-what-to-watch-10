@@ -27,13 +27,13 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
   const currentFilter = useAppSelector((state) => state.currentFilter);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
   const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const promoFilm = useAppSelector((state) => state.promoFilm);
   const INITIALLY_RENDERED_FILM_AMOUNT = 8;
   const [renderedFilmAmount, setRenderedFilmAmount] = useState<number>(INITIALLY_RENDERED_FILM_AMOUNT);
 
-  if (isDataLoading) {
+  if (isDataLoading || promoFilm === null) {
     return null;
   }
-  const selectedFilm = films[0];
   const filteredFilms = getFilteredFilms(films, currentFilter);
   const displayShowMoreButton = filteredFilms.length > 8 && renderedFilmAmount < filteredFilms.length;
 
@@ -41,7 +41,7 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={selectedFilm.backgroundImage} alt={selectedFilm.name} />
+          <img src={promoFilm.backgroundImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -51,18 +51,18 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={selectedFilm.posterImage} alt={`${selectedFilm.name} poster`} width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{selectedFilm.name}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{selectedFilm.genre}</span>
-                <span className="film-card__year">{selectedFilm.released}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button onClick={() => navigate(`/player/${selectedFilm.id}`)} className="btn btn--play film-card__button" type="button">
+                <button onClick={() => navigate(`/player/${promoFilm.id}`)} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>

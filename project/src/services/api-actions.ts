@@ -4,7 +4,7 @@ import {AppDispatch, State} from '../types/state';
 import { UserData } from '../types/user-data';
 import { AuthData } from '../types/auth-data';
 import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
-import {isDataLoading, loadFilms, loadCurrentFilm, setAuthStatus, setError} from '../store/action';
+import {isDataLoading, loadFilms, loadCurrentFilm, setAuthStatus, setError, loadSimilarFilms, loadPromoFilm} from '../store/action';
 import { Film } from '../types/film';
 import { saveToken, dropToken } from './token';
 import {store} from '../store';
@@ -28,7 +28,7 @@ export const fetchCurrentFilmAction = createAsyncThunk<void, string | undefined,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchFilm',
+  'data/fetchCurrentFilm',
   async (filmId, {dispatch, extra: api}) => {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
@@ -42,11 +42,25 @@ export const fetchSimilarFilmsAction = createAsyncThunk<void, string | undefined
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchFilm',
+  'data/fetchSimilarFilms',
   async (filmId, {dispatch, extra: api}) => {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film[]>(`${APIRoute.Films}/${filmId}/similar`);
-    dispatch(loadCurrentFilm(data));
+    dispatch(loadSimilarFilms(data));
+    dispatch(isDataLoading(false));
+  },
+);
+
+export const fetchPromoFilmAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchPromoFilm',
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(isDataLoading(true));
+    const {data} = await api.get<Film>(APIRoute.Promo);
+    dispatch(loadPromoFilm(data));
     dispatch(isDataLoading(false));
   },
 );
