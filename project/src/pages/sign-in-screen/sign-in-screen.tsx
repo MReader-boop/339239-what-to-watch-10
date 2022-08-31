@@ -2,14 +2,17 @@ import { Link } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import {FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../services/api-actions';
+import {setError} from '../../store/action';
 import {AuthData} from '../../types/auth-data';
 
 function SignInScreen(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const error = useAppSelector((store) => store.error);
+
   const [authData, setAuthData] = useState<{
     email: string | undefined;
     password: string | undefined;
@@ -26,6 +29,7 @@ function SignInScreen(): JSX.Element {
     evt.preventDefault();
 
     if (authData.email !== undefined && authData.password !== undefined) {
+      dispatch(setError(null));
       onSubmit({
         email: authData.email,
         password: authData.password,
@@ -64,6 +68,10 @@ function SignInScreen(): JSX.Element {
           className="sign-in__form"
           onSubmit={handleSubmit}
         >
+          {error ?
+            <div className="sign-in__message">
+              <p>{error}</p>
+            </div> : ''}
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input

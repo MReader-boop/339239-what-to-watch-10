@@ -10,7 +10,7 @@ type PageHeaderProps = {
 function PageHeader({authStatus}: PageHeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const handleSignOut = (evt: any) => {
+  const handleSignOut = (evt: React.MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     dispatch(logoutAction());
   };
