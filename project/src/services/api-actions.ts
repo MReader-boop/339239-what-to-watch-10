@@ -1,12 +1,12 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/state.js';
-import { UserData } from '../types/user-data.js';
-import { AuthData } from '../types/auth-data.js';
+import {AppDispatch, State} from '../types/state';
+import { UserData } from '../types/user-data';
+import { AuthData } from '../types/auth-data';
 import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {isDataLoading, loadFilms, setAuthStatus, setError} from '../store/action';
-import { Film } from '../types/film.js';
-import { saveToken, dropToken } from './token.js';
+import { Film } from '../types/film';
+import { saveToken, dropToken } from './token';
 import {store} from '../store';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
