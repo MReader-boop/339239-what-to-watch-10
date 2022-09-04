@@ -1,5 +1,3 @@
-//import {Review} from '../types/review';
-
 export type Film = {
   id: number;
   name: string;

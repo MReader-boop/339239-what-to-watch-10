@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../const';
 import {Film} from '../../types/film';

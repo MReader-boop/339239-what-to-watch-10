@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {Film} from '../../types/film';
 import TabsOverview from '../tabs-overview/tabs-overview';
 import TabsDetails from '../tabs-details/tabs-details';
