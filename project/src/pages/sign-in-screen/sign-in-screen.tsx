@@ -21,11 +21,17 @@ function SignInScreen(): JSX.Element {
     evt.preventDefault();
 
     if (emailRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      });
-      navigate(AppRoutes.Main);
+      if(passwordRef.current.value && emailRef.current.value){
+        const password = passwordRef.current.value;
+        const passwordRegExp = new RegExp('[0-9]+[a-z]+|[a-z]+[0-9]+', 'i');
+        if (passwordRegExp.test(password)) {
+          onSubmit({
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+          });
+          navigate(AppRoutes.Main);
+        }
+      }
     }
   };
 
