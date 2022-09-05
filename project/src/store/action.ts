@@ -46,3 +46,7 @@ export const loadFavorites = createAction('films/loadFavorites', (favoriteFilms)
 export const changeFilmFavoriteStatus = createAction('films/changeFilmFavoriteStatus', (film: Film) => ({
   payload: film
 }));
+
+export const loadReviews = createAction('films/loadReviews', (reviews) => ({
+  payload: reviews
+}));

@@ -4,7 +4,7 @@ import Tabs from '../../components/tabs/tabs';
 import FilmList from '../../components/film-list/film-list';
 import PageHeader from '../../components/page-header/page-header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchCurrentFilmAction, fetchSimilarFilmsAction, changeFilmFavoriteStatusAction, fetchFavoritesAction } from '../../services/api-actions';
+import { fetchCurrentFilmAction, fetchSimilarFilmsAction, changeFilmFavoriteStatusAction, fetchFavoritesAction, fetchReviewsAction } from '../../services/api-actions';
 import { useEffect } from 'react';
 
 function FilmScreen(): JSX.Element | null {
@@ -20,6 +20,7 @@ function FilmScreen(): JSX.Element | null {
   useEffect(() => {
     dispatch(fetchCurrentFilmAction(id));
     dispatch(fetchSimilarFilmsAction(id));
+    dispatch(fetchReviewsAction(id));
   }, [id]);
 
   useEffect(() => {

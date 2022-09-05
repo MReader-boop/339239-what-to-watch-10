@@ -1,12 +1,8 @@
+import { Review } from '../../types/review';
 import TabsReview from '../tabs-review/tabs-review';
 
 type TabsReviewListProps = {
-  reviews: {
-    text: string,
-    rating: number,
-    userName: string,
-    date: string
-  }[];
+  reviews: Review[];
 }
 
 function TabsReviewList({reviews}: TabsReviewListProps): JSX.Element {

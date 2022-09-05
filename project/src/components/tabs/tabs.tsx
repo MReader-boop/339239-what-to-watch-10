@@ -4,7 +4,7 @@ import TabsDetails from '../tabs-details/tabs-details';
 import TabsReviewList from '../tabs-review-list/tabs-review-list';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { reviews } from '../../mocks/reviews';
+import { useAppSelector } from '../../hooks';
 
 enum Tab {
   Overview = 'overview',
@@ -18,6 +18,8 @@ type TabsProps = {
 
 function Tabs({film}: TabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState(Tab.Overview);
+  const reviews = useAppSelector((store) => store.currentFilmReviews);
+
   return(
     <div className="film-card__desc">
       <nav className="film-nav film-card__nav">

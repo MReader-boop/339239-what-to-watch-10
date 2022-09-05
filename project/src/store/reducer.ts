@@ -8,16 +8,19 @@ import { loadFilms,
   loadPromoFilm,
   loadSimilarFilms,
   loadFavorites,
-  changeFilmFavoriteStatus
+  changeFilmFavoriteStatus,
+  loadReviews
 } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import {Filters, AuthStatus} from '../const';
 import {Film} from '../types/film';
+import { Review } from '../types/review';
 
 type State = {
   currentFilter: string;
   promoFilm: Film | null;
   currentFilm: Film | null;
+  currentFilmReviews: Review[] | [];
   similarFilmsList: Film[] | [];
   filmList: Film[] | [];
   favorites: Film[] | [];
@@ -31,6 +34,7 @@ const initialState: State = {
   currentFilter: Filters.AllGenres,
   filmList: [],
   currentFilm: null,
+  currentFilmReviews: [],
   promoFilm: null,
   similarFilmsList: [],
   favorites: [],
@@ -77,6 +81,9 @@ const reducer = createReducer(
       .addCase(changeFilmFavoriteStatus, (state, action) => {
         const filmIndex = state.filmList.findIndex((film) => film.id === action.payload.id);
         state.filmList[filmIndex] = action.payload;
+      })
+      .addCase(loadReviews, (state, action) => {
+        state.currentFilmReviews = action.payload;
       });
   }
 );

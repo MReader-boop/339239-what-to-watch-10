@@ -6,7 +6,8 @@ import {isDataLoading,
   loadSimilarFilms,
   loadPromoFilm,
   loadFavorites,
-  changeFilmFavoriteStatus} from '../store/action';
+  changeFilmFavoriteStatus,
+  loadReviews} from '../store/action';
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
@@ -83,6 +84,20 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film[]>(APIRoute.Favorite);
     dispatch(loadFavorites(data));
+    dispatch(isDataLoading(false));
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchReviews',
+  async (filmId, {dispatch, extra: api}) => {
+    dispatch(isDataLoading(true));
+    const {data} = await api.get<Film[]>(`${APIRoute.Comments}/${filmId}`);
+    dispatch(loadReviews(data));
     dispatch(isDataLoading(false));
   },
 );
