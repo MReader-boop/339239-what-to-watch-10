@@ -6,8 +6,13 @@ type FilmListProps = {
   films: Film[];
 };
 
-function FilmList({films}: FilmListProps): JSX.Element {
+function FilmList({films}: FilmListProps): JSX.Element | null {
   const [activeFilmId, setActiveFilmId] = useState<number | null>();
+
+  if(films.length === 0) {
+    return null;
+  }
+
   return (
     <div className="catalog__films-list">
       {films.map((film) => {

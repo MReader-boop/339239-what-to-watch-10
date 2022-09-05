@@ -39,11 +39,11 @@ function App(): JSX.Element {
         <Route path = {AppRoutes.MyList}
           element = {
             <PrivateRoute authStatus = {authStatus} >
-              <MyListScreen films={films}/>
+              <MyListScreen />
             </PrivateRoute>
           }
         />
-        <Route path = {AppRoutes.Film} element = {<FilmScreen films={films}/>}/>
+        <Route path = {AppRoutes.Film} element = {<FilmScreen />}/>
         <Route path = {AppRoutes.AddReview} element = {<AddReviewScreen film={films[0]} />}/>
         <Route path = {AppRoutes.Player} element = {<PlayerScreen films={films}/>}/>
         <Route path = '*' element = {<NotFoundScreen />}/>

@@ -5,10 +5,10 @@ import { useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../services/api-actions';
 
 type PageHeaderProps = {
-  authStatus: AuthStatus;
+  authStatus?: AuthStatus;
 }
 
-function PageHeader({authStatus}: PageHeaderProps): JSX.Element {
+function PageHeader({authStatus = AuthStatus.NotAuthed}: PageHeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

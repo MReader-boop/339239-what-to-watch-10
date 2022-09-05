@@ -1,12 +1,13 @@
 import FilmList from '../../components/film-list/film-list';
 import GenreList from '../../components/genre-list/genre-list';
 import ShowMore from '../../components/show-more/show-more';
-import { AppRoutes, AuthStatus, Filters } from '../../const';
+import { AuthStatus, Filters } from '../../const';
 import {Film} from '../../types/film';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import PageHeader from '../../components/page-header/page-header';
+import { changeFilmFavoriteStatusAction, fetchFavoritesAction } from '../../services/api-actions';
 
 
 const getFilteredFilms = (films: Film[], filter: string) => {
@@ -24,18 +25,30 @@ type HomeScreenProps = {
 
 function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const currentFilter = useAppSelector((state) => state.currentFilter);
   const isDataLoading = useAppSelector((state) => state.isDataLoading);
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const promoFilm = useAppSelector((state) => state.promoFilm);
+  const favorites = useAppSelector((store) => store.favorites);
   const INITIALLY_RENDERED_FILM_AMOUNT = 8;
   const [renderedFilmAmount, setRenderedFilmAmount] = useState<number>(INITIALLY_RENDERED_FILM_AMOUNT);
+
+  useEffect(() => {
+    if(authStatus === AuthStatus.Authed){
+      dispatch(fetchFavoritesAction());
+    }
+  }, [authStatus]);
 
   if (isDataLoading || promoFilm === null) {
     return null;
   }
   const filteredFilms = getFilteredFilms(films, currentFilter);
   const displayShowMoreButton = filteredFilms.length > 8 && renderedFilmAmount < filteredFilms.length;
+
+  const handleMyListButtonClick = () => {
+    dispatch(changeFilmFavoriteStatusAction(promoFilm));
+  };
 
   return(
     <>
@@ -70,12 +83,12 @@ function HomeScreen({films, filterList}: HomeScreenProps): JSX.Element | null {
                 </button>
 
                 {authStatus === AuthStatus.Authed ?
-                  <button onClick={() => navigate(AppRoutes.MyList)} className="btn btn--list film-card__button" type="button">
+                  <button onClick={handleMyListButtonClick} className="btn btn--list film-card__button" type="button">
                     <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
+                      <use xlinkHref={promoFilm.isFavorite ? '#in-list' : '#add'}></use>
                     </svg>
                     <span>My list</span>
-                    <span className="film-card__count">9</span>
+                    <span className="film-card__count">{favorites.length}</span>
                   </button> :
                   ''}
               </div>

@@ -7,6 +7,7 @@ type PreviewPlayerProps = {
 
 function PreviewPlayer({videoPreview, posterPreview}: PreviewPlayerProps): JSX.Element {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const PREVIEW_DELAY = 1000;
 
   useEffect(() => {
     setTimeout(
@@ -14,7 +15,7 @@ function PreviewPlayer({videoPreview, posterPreview}: PreviewPlayerProps): JSX.E
         if(videoRef.current) {
           videoRef.current.play();
         }
-      }, 1000
+      }, PREVIEW_DELAY
     );
   }
   );

@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
+import { Film } from '../types/film';
 
 export const changeCurrentFilter = createAction('films/changeCurrentFilter', (filter) => ({
   payload: filter
@@ -36,4 +37,12 @@ export const setAuthStatus = createAction('user/setAuthStatus', (status) => ({
 
 export const setError = createAction('data/setError', (status) => ({
   payload: status
+}));
+
+export const loadFavorites = createAction('films/loadFavorites', (favoriteFilms) => ({
+  payload: favoriteFilms
+}));
+
+export const changeFilmFavoriteStatus = createAction('films/changeFilmFavoriteStatus', (film: Film) => ({
+  payload: film
 }));

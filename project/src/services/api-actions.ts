@@ -1,10 +1,18 @@
+import {isDataLoading,
+  loadFilms,
+  loadCurrentFilm,
+  setAuthStatus,
+  setError,
+  loadSimilarFilms,
+  loadPromoFilm,
+  loadFavorites,
+  changeFilmFavoriteStatus} from '../store/action';
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
 import { UserData } from '../types/user-data';
 import { AuthData } from '../types/auth-data';
 import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
-import {isDataLoading, loadFilms, loadCurrentFilm, setAuthStatus, setError, loadSimilarFilms, loadPromoFilm} from '../store/action';
 import { Film } from '../types/film';
 import { saveToken, dropToken } from './token';
 import {store} from '../store';
@@ -61,6 +69,34 @@ export const fetchPromoFilmAction = createAsyncThunk<void, string | undefined, {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film>(APIRoute.Promo);
     dispatch(loadPromoFilm(data));
+    dispatch(isDataLoading(false));
+  },
+);
+
+export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchFavorites',
+  async (_arg, {dispatch, extra: api}) => {
+    dispatch(isDataLoading(true));
+    const {data} = await api.get<Film[]>(APIRoute.Favorite);
+    dispatch(loadFavorites(data));
+    dispatch(isDataLoading(false));
+  },
+);
+
+export const changeFilmFavoriteStatusAction = createAsyncThunk<void, Film, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/changeFilmFavoriteStatusAction',
+  async ({id, isFavorite}, {dispatch, extra: api}) => {
+    dispatch(isDataLoading(true));
+    const {data} = await api.post<Film>(`${APIRoute.Favorite}/${id}/${!isFavorite ? '1' : '0'}`);
+    dispatch(changeFilmFavoriteStatus(data));
     dispatch(isDataLoading(false));
   },
 );

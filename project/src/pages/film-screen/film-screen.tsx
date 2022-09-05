@@ -1,34 +1,38 @@
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { AppRoutes } from '../../const';
-import {Film} from '../../types/film';
+import { AppRoutes, AuthStatus } from '../../const';
 import Tabs from '../../components/tabs/tabs';
 import FilmList from '../../components/film-list/film-list';
 import PageHeader from '../../components/page-header/page-header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchCurrentFilmAction, fetchSimilarFilmsAction } from '../../services/api-actions';
+import { fetchCurrentFilmAction, fetchSimilarFilmsAction, changeFilmFavoriteStatusAction, fetchFavoritesAction } from '../../services/api-actions';
 import { useEffect } from 'react';
 
-type FilmScreenProps = {
-  films: Film[]
-}
-
-function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
+function FilmScreen(): JSX.Element | null {
   const {id} = useParams();
   const navigate = useNavigate();
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
+
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const favorites = useAppSelector((store) => store.favorites);
+  const similarFilms = useAppSelector((store) => store.similarFilmsList);
+  const currentFilm = useAppSelector((store) => store.currentFilm);
 
   useEffect(() => {
     dispatch(fetchCurrentFilmAction(id));
     dispatch(fetchSimilarFilmsAction(id));
   }, [id]);
 
-  const similarFilms = useAppSelector((store) => store.similarFilmsList);
-  const currentFilm = useAppSelector((store) => store.currentFilm);
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  }, [currentFilm]);
 
   if(currentFilm === null || similarFilms === []){
     return(null);
   }
+
+  const handleMyListButtonClick = () => {
+    dispatch(changeFilmFavoriteStatusAction(currentFilm));
+  };
 
   return(
     <>
@@ -57,13 +61,15 @@ function FilmScreen({films}: FilmScreenProps): JSX.Element | null {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button onClick={() => navigate(AppRoutes.MyList)} className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                {authStatus === AuthStatus.Authed ?
+                  <button onClick={handleMyListButtonClick} className="btn btn--list film-card__button" type="button">
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref={currentFilm.isFavorite ? '#in-list' : '#add'}></use>
+                    </svg>
+                    <span>My list</span>
+                    <span className="film-card__count">{favorites.length}</span>
+                  </button> :
+                  ''}
                 <button onClick={() => navigate(AppRoutes.AddReview)} className="btn film-card__button">Add review</button>
               </div>
             </div>
