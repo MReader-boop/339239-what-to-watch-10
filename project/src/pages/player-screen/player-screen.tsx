@@ -1,29 +1,46 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { AppRoutes } from '../../const';
-import {Film} from '../../types/film';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchCurrentFilmAction } from '../../services/api-actions';
 
 const styleLeft = {
   left: '30%'
 };
 
-type PlayerScreenProps = {
-  films: Film[];
-};
-
-function PlayerScreen({films}: PlayerScreenProps): JSX.Element {
+function PlayerScreen(): JSX.Element | null {
   const {id} = useParams();
+  const dispatch = useAppDispatch();
+  const currentFilm = useAppSelector((store) => store.currentFilm);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoState, setVideoState] = useState({
+    isPlaying: false,
+  });
 
-  if (id === undefined) {
+  useEffect(() => {
+    dispatch(fetchCurrentFilmAction(id));
+  }, [id]);
+
+  if(currentFilm === null){
     return(<Navigate to='/*' />);
   }
-  const currentFilm = films.find((film) => film.id === +id);
 
-  if(currentFilm === undefined){
-    return(<Navigate to='/*' />);
-  }
+  const onPlayButtonClick = () => {
+    if(videoRef.current !== null) {
+      if(videoState.isPlaying) {
+        setVideoState({...videoState, isPlaying: false});
+        videoRef.current.pause();
+      } else {
+        setVideoState({...videoState, isPlaying: true});
+        videoRef.current.play();
+      }
+
+    }
+  };
+
   return(
     <div className="player">
-      <video src="#" className="player__video" poster={currentFilm.backgroundImage}></video>
+      <video ref={videoRef} src={currentFilm.videoLink} className="player__video" poster={currentFilm.backgroundImage}></video>
 
       <Link to={AppRoutes.Main}>
         <button type="button" className="player__exit">Exit</button>
@@ -39,9 +56,9 @@ function PlayerScreen({films}: PlayerScreenProps): JSX.Element {
         </div>
 
         <div className="player__controls-row">
-          <button type="button" className="player__play">
+          <button type="button" className="player__play" onClick={onPlayButtonClick}>
             <svg viewBox="0 0 19 19" width="19" height="19">
-              <use xlinkHref="#play-s"></use>
+              <use xlinkHref={videoState.isPlaying ? '#pause' : '#play-s'}></use>
             </svg>
             <span>Play</span>
           </button>
