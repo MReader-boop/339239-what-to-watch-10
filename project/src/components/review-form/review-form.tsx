@@ -1,6 +1,13 @@
-import {useState, ChangeEvent} from 'react';
+import React, {useState, ChangeEvent} from 'react';
+import { postReviewAction } from '../../services/api-actions';
+import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
-function ReviewForm(): JSX.Element {
+type ReviewFormProps = {
+  filmId: number;
+};
+
+function ReviewForm({filmId}: ReviewFormProps): JSX.Element {
 
   const textFieldChangeHandler = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     const value = evt.target.value;
@@ -11,11 +18,27 @@ function ReviewForm(): JSX.Element {
     setRating(Number(evt.target.value));
   };
 
+  const navigate = useNavigate();
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
 
+  const onReviewSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault();
+    postReviewAction({
+      comment: reviewText,
+      date: dayjs().format(),
+      id: filmId,
+      rating: rating,
+      user: {
+        id: 0,
+        name: 'John Doe',
+      }
+    });
+    navigate(`/films/${filmId}`);
+  };
+
   return(
-    <form action="#" className="add-review__form">
+    <form onSubmit={onReviewSubmit} action="#" className="add-review__form">
       <div className="rating">
         <div className="rating__stars" onChange={ratingChangeHandler}>
           <input className="rating__input" id="star-10" type="radio" name="rating" value="10" checked = {rating === 10}/>

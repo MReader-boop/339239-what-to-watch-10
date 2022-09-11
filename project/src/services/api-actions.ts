@@ -17,13 +17,14 @@ import {APIRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import { Film } from '../types/film';
 import { saveToken, dropToken } from './token';
 import {store} from '../store';
+import { Review } from '../types/review';
 
 export const fetchFilmsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchFilms',
+  'films/fetchFilms',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film[]>(APIRoute.Films);
@@ -37,7 +38,7 @@ export const fetchCurrentFilmAction = createAsyncThunk<void, string | undefined,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchCurrentFilm',
+  'films/fetchCurrentFilm',
   async (filmId, {dispatch, extra: api}) => {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
@@ -51,7 +52,7 @@ export const fetchSimilarFilmsAction = createAsyncThunk<void, string | undefined
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchSimilarFilms',
+  'films/fetchSimilarFilms',
   async (filmId, {dispatch, extra: api}) => {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film[]>(`${APIRoute.Films}/${filmId}/similar`);
@@ -65,7 +66,7 @@ export const fetchPromoFilmAction = createAsyncThunk<void, string | undefined, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchPromoFilm',
+  'films/fetchPromoFilm',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film>(APIRoute.Promo);
@@ -79,25 +80,11 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchFavorites',
+  'films/fetchFavorites',
   async (_arg, {dispatch, extra: api}) => {
     dispatch(isDataLoading(true));
     const {data} = await api.get<Film[]>(APIRoute.Favorite);
     dispatch(loadFavorites(data));
-    dispatch(isDataLoading(false));
-  },
-);
-
-export const fetchReviewsAction = createAsyncThunk<void, string | undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
-  'data/fetchReviews',
-  async (filmId, {dispatch, extra: api}) => {
-    dispatch(isDataLoading(true));
-    const {data} = await api.get<Film[]>(`${APIRoute.Comments}/${filmId}`);
-    dispatch(loadReviews(data));
     dispatch(isDataLoading(false));
   },
 );
@@ -107,11 +94,39 @@ export const changeFilmFavoriteStatusAction = createAsyncThunk<void, Film, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/changeFilmFavoriteStatusAction',
+  'films/changeFilmFavoriteStatusAction',
   async ({id, isFavorite}, {dispatch, extra: api}) => {
     dispatch(isDataLoading(true));
     const {data} = await api.post<Film>(`${APIRoute.Favorite}/${id}/${!isFavorite ? '1' : '0'}`);
     dispatch(changeFilmFavoriteStatus(data));
+    dispatch(isDataLoading(false));
+  },
+);
+
+export const fetchReviewsAction = createAsyncThunk<void, string | undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'films/fetchReviews',
+  async (filmId, {dispatch, extra: api}) => {
+    dispatch(isDataLoading(true));
+    const {data} = await api.get<Review[]>(`${APIRoute.Comments}/${filmId}`);
+    dispatch(loadReviews(data));
+    dispatch(isDataLoading(false));
+  },
+);
+
+export const postReviewAction = createAsyncThunk<void, Review, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'films/postReview',
+  async ({comment, rating, id}, {dispatch, extra: api}) => {
+    dispatch(isDataLoading(true));
+    const {data} = await api.post<Review[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
+    loadReviews(data);
     dispatch(isDataLoading(false));
   },
 );
@@ -163,7 +178,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 );
 
 export const clearErrorAction = createAsyncThunk(
-  'game/clearError',
+  'app/clearError',
   () => {
     setTimeout(
       () => store.dispatch(setError(null)),
